@@ -1,0 +1,7 @@
+node_modules/
+.env
+backend/cpp-engine/engine
+backend/cpp-engine/engine.exe
+.DS_Store
+dist/
+build/

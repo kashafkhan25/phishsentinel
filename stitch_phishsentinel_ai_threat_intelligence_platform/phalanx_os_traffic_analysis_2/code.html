@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #000000;
+            background-image: 
+                linear-gradient(rgba(47, 217, 244, 0.05) 1px, transparent 1px),
+                linear-gradient(90px, rgba(47, 217, 244, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: #dce1fb;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border: 1px solid transparent;
+            background: linear-gradient(to bottom right, rgba(255,255,255,0.15), rgba(255,255,255,0.02)) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        .neon-glow-cyan {
+            box-shadow: 0 0 15px rgba(47, 217, 244, 0.4);
+        }
+        .cyber-grid-bg {
+            background-image: radial-gradient(circle at 2px 2px, rgba(47, 217, 244, 0.15) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed-dim": "#ffb1c6",
+                        "outline-variant": "#3c494c",
+                        "inverse-surface": "#dce1fb",
+                        "primary": "#8aebff",
+                        "on-primary": "#00363e",
+                        "on-background": "#dce1fb",
+                        "on-primary-fixed": "#001f25",
+                        "on-secondary-fixed": "#001a42",
+                        "on-error": "#690005",
+                        "primary-container": "#22d3ee",
+                        "on-surface": "#dce1fb",
+                        "inverse-on-surface": "#2a3043",
+                        "error": "#ffb4ab",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "secondary-container": "#0566d9",
+                        "tertiary-fixed": "#ffd9e1",
+                        "surface-container-low": "#151b2d",
+                        "surface-variant": "#2e3447",
+                        "primary-fixed": "#a2eeff",
+                        "outline": "#859397",
+                        "error-container": "#93000a",
+                        "surface-container-highest": "#2e3447",
+                        "on-tertiary": "#650031",
+                        "tertiary-container": "#ffa8c1",
+                        "on-tertiary-container": "#9d0150",
+                        "secondary-fixed": "#d8e2ff",
+                        "surface": "#0c1324",
+                        "on-secondary-fixed-variant": "#004395",
+                        "surface-dim": "#0c1324",
+                        "background": "#0c1324",
+                        "secondary": "#adc6ff",
+                        "primary-fixed-dim": "#2fd9f4",
+                        "on-primary-fixed-variant": "#004e5a",
+                        "on-tertiary-fixed-variant": "#8e0048",
+                        "inverse-primary": "#006877",
+                        "surface-container-high": "#23293c",
+                        "surface-container": "#191f31",
+                        "on-secondary": "#002e6a",
+                        "on-primary-container": "#005763",
+                        "surface-bright": "#33394c",
+                        "on-surface-variant": "#bbc9cd",
+                        "on-error-container": "#ffdad6",
+                        "tertiary": "#ffd1dc",
+                        "surface-container-lowest": "#070d1f",
+                        "on-tertiary-fixed": "#3f001c",
+                        "on-secondary-container": "#e6ecff",
+                        "surface-tint": "#2fd9f4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "grid-unit": "4px",
+                        "section-gap": "5rem",
+                        "gutter": "1.5rem",
+                        "margin": "2rem",
+                        "element-gap": "1rem",
+                        "container-max": "1440px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-caps": ["Space Grotesk"],
+                        "data-mono": ["Space Grotesk"],
+                        "headline-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "data-mono": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "headline-sm": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="min-h-screen flex flex-col font-body-md text-body-md overflow-x-hidden">
+<header class="bg-surface/10 backdrop-blur-xl border-b border-white/10 shadow-[0_0_15px_rgba(47,217,244,0.1)] docked full-width top-0 sticky z-50">
+<div class="flex justify-between items-center w-full px-margin py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-bold text-primary tracking-tighter">Phalanx AI</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-headline-sm text-headline-sm" href="#">Network</a>
+<a class="text-primary border-b-2 border-primary pb-1 font-headline-sm text-headline-sm" href="#">Threats</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-headline-sm text-headline-sm" href="#">Intelligence</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-headline-sm text-headline-sm" href="#">Assets</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary text-on-primary px-4 py-2 font-label-caps text-label-caps rounded-DEFAULT hover:neon-glow-cyan active:scale-95 transition-all">Deploy Shield</button>
+<button class="border border-primary text-primary px-4 py-2 font-label-caps text-label-caps rounded-DEFAULT hover:bg-white/5 active:scale-95 transition-all">Terminal Access</button>
+<img alt="Operator Profile" class="w-10 h-10 rounded-full border border-primary/30" data-alt="A close-up portrait of a high-tech cybersecurity operative's profile avatar. The figure is silhouetted against a backdrop of flowing blue data streams and glowing digital grids. The lighting is low-key with intense neon cyan highlights defining the edges of a tactical headset and visor. The overall aesthetic is futuristic, cinematic, and elite, reflecting a top-tier command center environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhnybqITgnBJMwTgh5fJyM4nDy6EtoQEpBmU9tK0sBDuU7o2_nSUrpVQm0y-GrzKOlhUkuTJEWEgVw3U96bvqEaAqQt256vOneCZguZSaIY10hFfhUcEJwGtl6kAaVAQn_Gl5xP4nXx9wEjNcqEceT0R4PLP5SZ-QiK6XALc7ZDv2IZIZISeRh-gbCNFS2l9YAxhcGAxwAHZaJCOKpmBm_jbtdDM3B0TW82CH_W1fPKJ63b_BdM-se6To4I7sTVlCoXbwkO3ZAr8Y"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 max-w-container-max mx-auto w-full">
+<aside class="bg-surface-container-lowest/80 backdrop-blur-2xl border-r border-outline-variant/30 shadow-2xl shadow-black docked left-0 h-auto w-64 hidden lg:flex flex-col py-margin">
+<div class="px-6 mb-8">
+<div class="font-headline-sm text-headline-sm text-primary-fixed">Phalanx OS</div>
+<div class="text-[10px] text-on-surface-variant/60 font-data-mono">v4.2.0-stable</div>
+</div>
+<nav class="flex-1">
+<div class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200 cursor-pointer font-label-caps text-label-caps">
+<span class="material-symbols-outlined">dashboard</span>
+                    Command Center
+                </div>
+<div class="bg-primary-container/20 text-primary border-r-2 border-primary-fixed flex items-center gap-3 px-6 py-3 font-label-caps text-label-caps">
+<span class="material-symbols-outlined">analytics</span>
+                    Traffic Analysis
+                </div>
+<div class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200 cursor-pointer font-label-caps text-label-caps">
+<span class="material-symbols-outlined">security</span>
+                    Vulnerability Scan
+                </div>
+<div class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200 cursor-pointer font-label-caps text-label-caps">
+<span class="material-symbols-outlined">lock</span>
+                    Encrypted Vault
+                </div>
+<div class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200 cursor-pointer font-label-caps text-label-caps">
+<span class="material-symbols-outlined">terminal</span>
+                    System Logs
+                </div>
+</nav>
+<div class="px-6 mt-auto flex flex-col gap-2">
+<div class="text-on-surface-variant flex items-center gap-3 py-2 hover:text-primary transition-colors cursor-pointer font-label-caps text-label-caps">
+<span class="material-symbols-outlined">settings</span>
+                    Settings
+                </div>
+<div class="text-on-surface-variant flex items-center gap-3 py-2 hover:text-primary transition-colors cursor-pointer font-label-caps text-label-caps">
+<span class="material-symbols-outlined">help_center</span>
+                    Support
+                </div>
+<button class="mt-4 w-full bg-surface-container-highest text-primary border border-primary/20 py-2 font-label-caps text-label-caps rounded-DEFAULT hover:bg-primary hover:text-on-primary transition-all">Force Protocol</button>
+</div>
+</aside>
+<main class="flex-1 p-margin flex flex-col gap-gutter">
+<header class="flex justify-between items-end">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight">Traffic Analysis</h1>
+<p class="text-on-surface-variant">Real-time network packet inspection and topology mapping</p>
+</div>
+<div class="flex gap-2 bg-surface-container px-2 py-1 rounded-lg border border-outline-variant/30">
+<button class="px-3 py-1 bg-primary/20 text-primary rounded font-label-caps text-[10px]">LIVE VIEW</button>
+<button class="px-3 py-1 text-on-surface-variant hover:text-on-surface rounded font-label-caps text-[10px]">HISTORICAL</button>
+</div>
+</header>
+<div class="grid grid-cols-1 xl:grid-cols-4 gap-gutter">
+<section class="xl:col-span-3 glass-card min-h-[500px] flex flex-col">
+<div class="p-4 border-b border-white/5 flex justify-between items-center bg-white/2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">hub</span>
+<span class="font-label-caps text-label-caps uppercase">Network Topology Visualization</span>
+</div>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+<span class="text-[10px] font-data-mono text-on-surface-variant uppercase">342 Active Nodes</span>
+</div>
+</div>
+</div>
+<div class="flex-1 relative cyber-grid-bg flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40"></div>
+<img alt="Network Topology" class="w-full h-full object-cover opacity-60 mix-blend-screen" data-alt="A complex network topology map displayed as a 3D generative graph with glowing neon cyan nodes and thin, pulsing electrical connection lines. The visualization is set against a deep black background featuring a subtle holographic 40px grid mesh. Light flows through the connections like data packets, creating a dynamic sense of motion. The style is highly technical, inspired by high-end command center interfaces with clinical precision and cinematic lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDM6KZFV8lTQmxCW-p5FMM4-OkNMcWB-yiR6Rt_Oj4A3x4knDB9btjWgCeFsHzfo9PSX0flgVkezfQJ0evFHVv0zQlTeKhUExIYDovT9nSx33XdZJgUczszMUgAH5nTITkyYA06Fa3n1tqXTMgEQQBhdYAIbaYLWPrh0hgzDM81F78_4Vjv24jafIsX5XYpBLeBcRaX9_OPPAyQ7d38b13s_sXWtVirs-YdMOn33nIzLfAg3Xq0Usk0VuT9LmdJmJE3BCEWyQjNXu4"/>
+<div class="absolute bottom-6 left-6 flex flex-col gap-2">
+<div class="glass-card p-3 rounded-xl border-primary/20">
+<div class="text-[10px] text-on-surface-variant font-label-caps mb-1 uppercase">Node Focus</div>
+<div class="text-primary font-data-mono text-sm uppercase">Secure_Gateway_01</div>
+<div class="text-[10px] text-on-surface-variant font-data-mono">192.168.1.1</div>
+</div>
+</div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+<div class="w-32 h-32 border border-primary/40 rounded-full animate-ping opacity-20"></div>
+</div>
+</div>
+</section>
+<aside class="glass-card p-margin flex flex-col gap-8">
+<div>
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary">analytics</span>
+<h3 class="font-label-caps text-label-caps uppercase">Protocol Distribution</h3>
+</div>
+<div class="space-y-6">
+<div class="space-y-2">
+<div class="flex justify-between font-data-mono text-sm">
+<span class="text-on-surface">TCP</span>
+<span class="text-primary">64.2%</span>
+</div>
+<div class="h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[64.2%] neon-glow-cyan"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between font-data-mono text-sm">
+<span class="text-on-surface">UDP</span>
+<span class="text-secondary">28.9%</span>
+</div>
+<div class="h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-[28.9%]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between font-data-mono text-sm">
+<span class="text-on-surface">ICMP</span>
+<span class="text-on-surface-variant">4.1%</span>
+</div>
+<div class="h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-on-surface-variant w-[4.1%]"></div>
+</div>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between font-data-mono text-sm">
+<span class="text-on-surface">OTHER</span>
+<span class="text-on-surface-variant/50">2.8%</span>
+</div>
+<div class="h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-on-surface-variant/30 w-[2.8%]"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-8 border-t border-white/5">
+<div class="glass-card bg-primary/5 p-4 rounded-xl border-primary/30">
+<div class="text-[10px] text-primary font-label-caps mb-2 uppercase">Integrity Status</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<div>
+<div class="text-sm font-bold text-on-surface uppercase">Sovereign Link</div>
+<div class="text-[10px] text-on-surface-variant font-data-mono">Latency: 12ms</div>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</div>
+<section class="glass-card">
+<div class="px-6 py-4 border-b border-white/5 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">list_alt</span>
+<h3 class="font-label-caps text-label-caps uppercase">Active Connections Log</h3>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant text-[10px] font-data-mono">
+<span>AUTO-REFRESH: <span class="text-primary">ON</span></span>
+<span>FILTERS: <span class="text-primary">ALL_TRAFFIC</span></span>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-data-mono text-sm">
+<thead class="bg-white/2 border-b border-white/5 font-label-caps text-[11px] text-on-surface-variant">
+<tr>
+<th class="px-6 py-4 uppercase">Source IP</th>
+<th class="px-6 py-4 uppercase">Destination IP</th>
+<th class="px-6 py-4 uppercase">Protocol</th>
+<th class="px-6 py-4 uppercase">Origin</th>
+<th class="px-6 py-4 uppercase text-center">Risk Score</th>
+<th class="px-6 py-4 uppercase">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<tr class="hover:bg-white/2 transition-colors">
+<td class="px-6 py-4 text-primary">10.0.42.155</td>
+<td class="px-6 py-4 text-on-surface">192.168.1.1</td>
+<td class="px-6 py-4"><span class="bg-surface-container px-2 py-0.5 rounded text-[10px]">TCP:443</span></td>
+<td class="px-6 py-4 flex items-center gap-2">
+<img alt="US Flag" class="rounded-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDfWnTMU_W022tv4c8mCpgXSinl2zwd2h4aR9-2RoWAziVjvnv7xdoomchjO7kJicDgZ8_LJaP-dVgUc-QuEYf1zJQ9OWDfdH5ioVS1WN9Ycjfo1_An5OKuxwF2OpAs5h1MQCvDgvYvfEisxTfeiEwQSjMDAyW_IkGCln6wtwaUJYoS6LNAQ-DVqNR_utNeMeBlK1r_bBp86mqYFWJG3so675rr-zL6DjlLVgSgeVz9UGX2L_6K-8uEevr50ySbQ-ZIEo1NmtmxPvo"/>
+<span class="text-[12px]">US (Local)</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center justify-center gap-2">
+<div class="w-16 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[12%]"></div>
+</div>
+<span class="text-[10px]">0.12</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
+<span class="text-[11px] font-label-caps text-primary uppercase">Secure</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-white/2 transition-colors bg-error/5">
+<td class="px-6 py-4 text-error">45.227.255.12</td>
+<td class="px-6 py-4 text-on-surface">10.0.0.4</td>
+<td class="px-6 py-4"><span class="bg-error/10 text-error px-2 py-0.5 rounded text-[10px]">SSH:22</span></td>
+<td class="px-6 py-4 flex items-center gap-2">
+<img alt="RU Flag" class="rounded-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvkKtopaH5vAvCSMUC8T5b8eP1h4vsqoKVklw4WtqRvXvioEHssg2yYIyUnHdJDTmH910JmLV_vHhirM7AgdgjB_U7BKFIKMN-E-iAdiJugZs5hw_iOK8YraKc8Hw5vwGmsLorv60znr5dyFUtSLSmCfhMFl4__MEP5OF64ZuIrhFg-Cd35mEztfRQaTlEtNi19NADXLzTf5uwzs_XGjiKFXoboPCkblTXkJI9YB71XYpq7315Nxlp2ClvlLHgoK3elDP3jvAAnts"/>
+<span class="text-[12px]">RU (Ext)</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center justify-center gap-2">
+<div class="w-16 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-error w-[88%] shadow-[0_0_8px_rgba(255,180,171,0.5)]"></div>
+</div>
+<span class="text-[10px] text-error">0.88</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-error animate-pulse shadow-[0_0_5px_#ffb4ab]"></div>
+<span class="text-[11px] font-label-caps text-error uppercase">Threat</span>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-white/2 transition-colors">
+<td class="px-6 py-4 text-primary">192.168.1.15</td>
+<td class="px-6 py-4 text-on-surface">8.8.8.8</td>
+<td class="px-6 py-4"><span class="bg-surface-container px-2 py-0.5 rounded text-[10px]">UDP:53</span></td>
+<td class="px-6 py-4 flex items-center gap-2">
+<img alt="Global" class="rounded-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhrqGWLN_f5iuT1F_XcbOi_QvMqna2vGaRf0meuvzJXR-WAztoRzeSgjI_Wmd4B7PGAkrR6FcDK4vLn_hmGStQawDD_BPB4y_5w0C29MLRg6JJPhUmbapsdPbXWaFxsfFmBttO8xj4CL5HvttaFjBkw1W49JvJVFhocsIo8LyqMNihcyQ99yGvZHzl2w4lcQ8XyZ-JeYKj1nQ3ymjVN8r6eYyqad3TqZLvU33AU7zAZO3dOZWp4eZ9dvWzhNHCPrGD4JAP5SZ4Kg8"/>
+<span class="text-[12px]">Google DNS</span>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center justify-center gap-2">
+<div class="w-16 h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[5%]"></div>
+</div>
+<span class="text-[10px]">0.05</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
+<span class="text-[11px] font-label-caps text-primary uppercase">Secure</span>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+</div>
+<footer class="bg-surface-container-lowest border-t border-surface-container-highest full-width py-section-gap">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-margin">
+<div class="col-span-1 md:col-span-2">
+<div class="font-headline-sm text-headline-sm text-primary mb-4">Phalanx AI</div>
+<p class="text-on-surface-variant max-w-md mb-6 font-body-md text-body-md">
+                    Engineered for absolute sovereignty. Our autonomous defense systems provide a digital fortress for enterprise assets, ensuring zero-trust integrity in an evolving threat landscape.
+                </p>
+<div class="text-[12px] text-on-surface-variant font-data-mono">
+                    © 2024 Phalanx AI. Engineered for Absolute Sovereignty.
+                </div>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps text-primary mb-4 uppercase">System</h4>
+<nav class="flex flex-col gap-2">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Zero Trust Path</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">API Docs</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Privacy Protocol</a>
+</nav>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps text-primary mb-4 uppercase">Integrity</h4>
+<nav class="flex flex-col gap-2">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Warrant Canary</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Security Audit</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Uptime: 99.999%</a>
+</nav>
+</div>
+</div>
+</footer>
+</body></html>

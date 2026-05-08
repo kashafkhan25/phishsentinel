@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed-dim": "#ffb1c6",
+                    "outline-variant": "#3c494c",
+                    "inverse-surface": "#dce1fb",
+                    "primary": "#8aebff",
+                    "on-primary": "#00363e",
+                    "on-background": "#dce1fb",
+                    "on-primary-fixed": "#001f25",
+                    "on-secondary-fixed": "#001a42",
+                    "on-error": "#690005",
+                    "primary-container": "#22d3ee",
+                    "on-surface": "#dce1fb",
+                    "inverse-on-surface": "#2a3043",
+                    "error": "#ffb4ab",
+                    "secondary-fixed-dim": "#adc6ff",
+                    "secondary-container": "#0566d9",
+                    "tertiary-fixed": "#ffd9e1",
+                    "surface-container-low": "#151b2d",
+                    "surface-variant": "#2e3447",
+                    "primary-fixed": "#a2eeff",
+                    "outline": "#859397",
+                    "error-container": "#93000a",
+                    "surface-container-highest": "#2e3447",
+                    "on-tertiary": "#650031",
+                    "tertiary-container": "#ffa8c1",
+                    "on-tertiary-container": "#9d0150",
+                    "secondary-fixed": "#d8e2ff",
+                    "surface": "#0c1324",
+                    "on-secondary-fixed-variant": "#004395",
+                    "surface-dim": "#0c1324",
+                    "background": "#0c1324",
+                    "secondary": "#adc6ff",
+                    "primary-fixed-dim": "#2fd9f4",
+                    "on-primary-fixed-variant": "#004e5a",
+                    "on-tertiary-fixed-variant": "#8e0048",
+                    "inverse-primary": "#006877",
+                    "surface-container-high": "#23293c",
+                    "surface-container": "#191f31",
+                    "on-secondary": "#002e6a",
+                    "on-primary-container": "#005763",
+                    "surface-bright": "#33394c",
+                    "on-surface-variant": "#bbc9cd",
+                    "on-error-container": "#ffdad6",
+                    "tertiary": "#ffd1dc",
+                    "surface-container-lowest": "#070d1f",
+                    "on-tertiary-fixed": "#3f001c",
+                    "on-secondary-container": "#e6ecff",
+                    "surface-tint": "#2fd9f4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "grid-unit": "4px",
+                    "section-gap": "5rem",
+                    "gutter": "1.5rem",
+                    "margin": "2rem",
+                    "element-gap": "1rem",
+                    "container-max": "1440px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-caps": ["Space Grotesk"],
+                    "data-mono": ["Space Grotesk"],
+                    "headline-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "data-mono": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-sm": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #000000;
+            background-image: linear-gradient(rgba(47, 217, 244, 0.05) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(47, 217, 244, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .scanline {
+            width: 100%;
+            height: 2px;
+            background: rgba(47, 217, 244, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 100;
+        }
+        .terminal-container {
+            scrollbar-width: thin;
+            scrollbar-color: #3c494c transparent;
+        }
+        .terminal-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .terminal-container::-webkit-scrollbar-thumb {
+            background-color: #3c494c;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="text-on-surface selection:bg-primary-container selection:text-on-primary-container">
+<div class="scanline"></div>
+<div class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="bg-surface-container-lowest/80 backdrop-blur-2xl text-primary font-label-caps text-label-caps docked left-0 h-screen w-64 border-r border-outline-variant/30 shadow-2xl shadow-black flex flex-col h-full py-margin sticky top-0">
+<div class="px-6 mb-10">
+<div class="font-headline-sm text-headline-sm text-primary-fixed mb-1">Phalanx OS</div>
+<div class="text-on-surface-variant opacity-70">v4.2.0-stable</div>
+</div>
+<nav class="flex-grow space-y-1">
+<a class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Command Center</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span>Traffic Analysis</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">security</span>
+<span>Vulnerability Scan</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">lock</span>
+<span>Encrypted Vault</span>
+</a>
+<a class="bg-primary-container/20 text-primary border-r-2 border-primary-fixed flex items-center gap-3 px-6 py-3 transition-all" href="#">
+<span class="material-symbols-outlined">terminal</span>
+<span>System Logs</span>
+</a>
+</nav>
+<div class="px-6 pt-6 border-t border-outline-variant/20 space-y-1 mt-auto">
+<a class="text-on-surface-variant flex items-center gap-3 px-0 py-2 hover:text-primary-fixed-dim transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-3 px-0 py-2 hover:text-primary-fixed-dim transition-all" href="#">
+<span class="material-symbols-outlined">help_center</span>
+<span>Support</span>
+</a>
+<button class="w-full mt-6 bg-primary-fixed text-on-primary-fixed py-3 rounded-lg font-bold tracking-widest uppercase text-[10px] hover:shadow-[0_0_15px_rgba(47,217,244,0.4)] transition-all">
+                    Force Protocol
+                </button>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col max-w-full overflow-hidden">
+<!-- TopNavBar -->
+<header class="bg-surface/10 backdrop-blur-xl text-primary font-headline-sm text-headline-sm docked full-width top-0 sticky z-50 border-b border-white/10 shadow-[0_0_15px_rgba(47,217,244,0.1)]">
+<div class="flex justify-between items-center w-full px-margin py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-8">
+<div class="font-headline-md text-headline-md font-bold text-primary tracking-tighter">Phalanx AI</div>
+<nav class="hidden lg:flex gap-6">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-md text-body-md" href="#">Network</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-md text-body-md" href="#">Threats</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-md text-body-md" href="#">Intelligence</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-md text-body-md" href="#">Assets</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group hidden sm:block">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline-variant text-sm">search</span>
+<input class="bg-black/40 border border-outline-variant/30 rounded-full py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-primary transition-all w-64" placeholder="Global system search..." type="text"/>
+</div>
+<button class="px-5 py-2 bg-primary text-on-primary rounded-lg font-bold text-sm active:scale-95 transition-transform">Deploy Shield</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-primary/30">
+<img alt="Operator" data-alt="A futuristic professional portrait of a tech operative in a darkened room, wearing high-tech eyewear. The lighting is dominated by a cyan digital glow that highlights their sharp features. The background shows blurred data screens and server racks in a deep navy blue, maintaining a high-contrast, cyberpunk aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-qy4JLyV9hqzEVQj0Lx3mX3R6Bl2A-mdXR9NW2GAzaAB1PysVNqPj2NqlP3k3cmBe0xnMd8LE9VdYAhJsxNVHGJzEBDNfzaZbhKTYhDZQAWhWL4Qw9Uu_g0oVgfXt5hLdKmRjM3EhtF4ztktWQ8pNexr7PqXELdu4jLWlzzTHFnvh8V7orV0smWYVvl4yILWQEdHEkAB0Ucmqq_apqEUCCPUz_2sLi14AgRKtMv5JrCfdkifdxt8xJ9vXF6AEPzeXpuBtl2FdHNI"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<section class="p-margin flex flex-col flex-grow gap-gutter">
+<!-- Terminal Header Area -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg mb-1">System Logs</h1>
+<div class="flex items-center gap-3">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+</span>
+<span class="font-data-mono text-data-mono text-primary uppercase tracking-widest">Live Tail Active</span>
+<span class="text-on-surface-variant text-sm border-l border-outline-variant/30 pl-3">Tracing: kernel-0-phalanx-core</span>
+</div>
+</div>
+<div class="flex items-center gap-2 w-full md:w-auto">
+<div class="relative flex-grow md:flex-grow-0">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline-variant text-[18px]">filter_list</span>
+<input class="bg-surface-container-low border border-outline-variant/30 rounded-lg py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-primary transition-all w-full md:w-72" placeholder="Filter by Process ID or Level" type="text"/>
+</div>
+<button class="bg-surface-container-high p-2 rounded-lg border border-outline-variant/30 hover:bg-surface-bright transition-colors">
+<span class="material-symbols-outlined">download</span>
+</button>
+<button class="bg-surface-container-high p-2 rounded-lg border border-outline-variant/30 hover:bg-surface-bright transition-colors">
+<span class="material-symbols-outlined">settings_input_component</span>
+</button>
+</div>
+</div>
+<!-- Terminal Container -->
+<div class="flex-grow flex flex-col bg-black border border-white/10 rounded-xl overflow-hidden shadow-2xl relative">
+<!-- Terminal Toolbar -->
+<div class="bg-surface-container-lowest border-b border-white/5 px-4 py-2 flex items-center justify-between">
+<div class="flex gap-2">
+<div class="w-3 h-3 rounded-full bg-error/50"></div>
+<div class="w-3 h-3 rounded-full bg-amber-500/50"></div>
+<div class="w-3 h-3 rounded-full bg-primary/50"></div>
+</div>
+<div class="font-data-mono text-[10px] text-outline-variant uppercase tracking-widest">phalanx_os_kernel_terminal -- zsh</div>
+<div class="flex gap-4">
+<span class="font-data-mono text-[10px] text-outline-variant">LINES: 102,408</span>
+<span class="font-data-mono text-[10px] text-outline-variant">ENCODING: UTF-8</span>
+</div>
+</div>
+<!-- Log Stream Area -->
+<div class="terminal-container flex-grow overflow-y-auto p-6 font-data-mono text-data-mono space-y-1 relative">
+<!-- Log Entry -->
+<div class="flex gap-4 opacity-80 hover:opacity-100 transition-opacity">
+<span class="text-outline-variant min-w-[150px]">2024-05-24 14:22:01</span>
+<span class="text-primary-fixed-dim min-w-[60px]">[INFO]</span>
+<span class="text-on-secondary-container bg-secondary-container/20 px-1 rounded">PID: 4401</span>
+<span class="text-on-surface-variant">System integrity check initiated... OK.</span>
+</div>
+<div class="flex gap-4 opacity-80">
+<span class="text-outline-variant min-w-[150px]">2024-05-24 14:22:05</span>
+<span class="text-primary-fixed-dim min-w-[60px]">[INFO]</span>
+<span class="text-on-secondary-container bg-secondary-container/20 px-1 rounded">PID: 0882</span>
+<span class="text-on-surface-variant">Encrypted vault sync successful for partition 0x77-A.</span>
+</div>
+<div class="flex gap-4 opacity-80">
+<span class="text-outline-variant min-w-[150px]">2024-05-24 14:22:12</span>
+<span class="text-amber-400 min-w-[60px]">[WARN]</span>
+<span class="text-on-secondary-container bg-secondary-container/20 px-1 rounded">PID: 1209</span>
+<span class="text-on-surface-variant">Latency spike detected in node: EU-WEST-SHIELD-4. Re-routing packets.</span>
+</div>
+<div class="flex gap-4 opacity-80">
+<span class="text-outline-variant min-w-[150px]">2024-05-24 14:22:18</span>
+<span class="text-primary-fixed-dim min-w-[60px]">[INFO]</span>
+<span class="text-on-secondary-container bg-secondary-container/20 px-1 rounded">PID: 3390</span>
+<span class="text-on-surface-variant">Load balancer stabilizing traffic flow (Target: 4ms).</span>
+</div>
+<div class="flex gap-4 opacity-80">
+<span class="text-outline-variant min-w-[150px]">2024-05-24 14:22:25</span>
+<span class="text-primary-fixed-dim min-w-[60px]">[INFO]</span>
+<span class="text-on-secondary-container bg-secondary-container/20 px-1 rounded">PID: 5521</span>
+<span class="text-on-surface-variant">New operator session established from 192.168.1.104.</span>
+</div>
+<!-- Escalation Attempt Highlight -->
+<div class="relative my-2 py-3 px-4 bg-error-container/20 border-l-4 border-error group">
+<div class="absolute inset-0 bg-error/5 opacity-10 group-hover:opacity-20 transition-opacity"></div>
+<div class="relative z-10 flex flex-col gap-1">
+<div class="flex gap-4">
+<span class="text-error font-bold min-w-[150px]">2024-05-24 14:23:02</span>
+<span class="text-error font-bold min-w-[60px]">[CRITICAL]</span>
+<span class="text-on-error-container bg-error/20 px-1 rounded">PID: 9982</span>
+<span class="text-error font-bold">UNAUTHORIZED PRIVILEGE ESCALATION ATTEMPT DETECTED</span>
+</div>
+<div class="ml-[226px] text-error/80 text-[12px] italic">
+                                    Source: External IP 104.22.8.12 | Vector: Buffer Overflow (CVE-2024-PHALANX-09)
+                                </div>
+<div class="ml-[226px] text-error/80 text-[12px] italic">
+                                    Action: IP Blacklisted. Automatic countermeasures deployed. Secure boot locked.
+                                </div>
+</div>
+</div>
+<div class="flex gap-4 opacity-80">
+<span class="text-outline-variant min-w-[150px]">2024-05-24 14:23:05</span>
+<span class="text-primary-fixed-dim min-w-[60px]">[INFO]</span>
+<span class="text-on-secondary-container bg-secondary-container/20 px-1 rounded">PID: 0001</span>
+<span class="text-on-surface-variant">Kernel self-healing protocol: RECOVERY_STAGE_1.</span>
+</div>
+<div class="flex gap-4 opacity-80">
+<span class="text-outline-variant min-w-[150px]">2024-05-24 14:23:08</span>
+<span class="text-tertiary-container min-w-[60px]">[ALERT]</span>
+<span class="text-on-secondary-container bg-secondary-container/20 px-1 rounded">PID: 0001</span>
+<span class="text-on-surface-variant">Security lockdown complete. No data exfiltration detected.</span>
+</div>
+<div class="flex gap-4 opacity-80">
+<span class="text-outline-variant min-w-[150px]">2024-05-24 14:23:15</span>
+<span class="text-primary-fixed-dim min-w-[60px]">[INFO]</span>
+<span class="text-on-secondary-container bg-secondary-container/20 px-1 rounded">PID: 4401</span>
+<span class="text-on-surface-variant">Resuming normal operations. Monitoring source IP for recursion.</span>
+</div>
+<div class="flex gap-4 opacity-80">
+<span class="text-outline-variant min-w-[150px]">2024-05-24 14:23:22</span>
+<span class="text-primary-fixed-dim min-w-[60px]">[INFO]</span>
+<span class="text-on-secondary-container bg-secondary-container/20 px-1 rounded">PID: 3390</span>
+<span class="text-on-surface-variant">Intelligence module updated with new threat signature.</span>
+</div>
+<div class="flex gap-4 opacity-80">
+<span class="text-outline-variant min-w-[150px]">2024-05-24 14:23:30</span>
+<span class="text-primary-fixed-dim min-w-[60px]">[INFO]</span>
+<span class="text-on-secondary-container bg-secondary-container/20 px-1 rounded">PID: 1022</span>
+<span class="text-on-surface-variant">Heartbeat broadcast to peripheral nodes successful.</span>
+</div>
+<div class="flex gap-4 opacity-80">
+<span class="text-outline-variant min-w-[150px]">2024-05-24 14:23:35</span>
+<span class="text-primary-fixed-dim min-w-[60px]">[INFO]</span>
+<span class="text-on-secondary-container bg-secondary-container/20 px-1 rounded">PID: 4401</span>
+<span class="text-on-surface-variant">Memory cache purged. 2.4GB reclaimed.</span>
+</div>
+<div class="flex gap-4 opacity-80">
+<span class="text-outline-variant min-w-[150px]">2024-05-24 14:23:42</span>
+<span class="text-primary-fixed-dim min-w-[60px]">[INFO]</span>
+<span class="text-on-secondary-container bg-secondary-container/20 px-1 rounded">PID: 0882</span>
+<span class="text-on-surface-variant">Asset registry reconciled with current hardware state.</span>
+</div>
+<div class="flex gap-4">
+<span class="text-outline-variant min-w-[150px]">2024-05-24 14:23:48</span>
+<span class="text-primary-fixed-dim min-w-[60px]">[INFO]</span>
+<span class="text-on-secondary-container bg-secondary-container/20 px-1 rounded">PID: 5521</span>
+<span class="text-on-surface-variant">Operator session heart-beat: ACTIVE.</span>
+<span class="animate-pulse text-primary ml-2">_</span>
+</div>
+</div>
+<!-- Terminal Status Bar -->
+<div class="bg-surface-container border-t border-white/5 px-6 py-4 flex items-center justify-between text-sm">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">memory</span>
+<span class="font-data-mono">CPU: 12.4%</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">database</span>
+<span class="font-data-mono">MEM: 44.1GB / 64GB</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">lan</span>
+<span class="font-data-mono">NET: 1.2GB/s</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-data-mono text-outline-variant">SYSTEM STATUS: OPTIMAL</span>
+<span class="h-2 w-2 rounded-full bg-primary shadow-[0_0_8px_rgba(47,217,244,0.8)]"></span>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest full-width py-section-gap border-t border-surface-container-highest">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-margin">
+<div class="col-span-1 md:col-span-1">
+<div class="font-headline-sm text-headline-sm text-primary mb-4">Phalanx AI</div>
+<p class="text-on-surface-variant font-body-md text-body-md max-w-xs">
+                            The definitive operating system for high-velocity enterprise security and threat intelligence.
+                        </p>
+</div>
+<div class="flex flex-col gap-3">
+<span class="font-label-caps text-label-caps text-primary mb-2">Protocols</span>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Zero Trust Path</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">API Docs</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="font-label-caps text-label-caps text-primary mb-2">Legal</span>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Privacy Protocol</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-body-md text-body-md" href="#">Warrant Canary</a>
+</div>
+<div class="flex flex-col gap-3">
+<span class="font-label-caps text-label-caps text-primary mb-2">Integrity</span>
+<p class="text-on-surface-variant font-body-md text-body-md italic">
+                            © 2024 Phalanx AI. Engineered for Absolute Sovereignty.
+                        </p>
+</div>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

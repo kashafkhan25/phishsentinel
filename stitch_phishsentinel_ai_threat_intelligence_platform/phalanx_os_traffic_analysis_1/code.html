@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Phalanx OS - Traffic Analysis</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#ffa8c1",
+                        "on-tertiary-fixed-variant": "#8e0048",
+                        "on-error": "#690005",
+                        "surface-variant": "#2e3447",
+                        "surface-container-lowest": "#070d1f",
+                        "outline": "#859397",
+                        "surface": "#0c1324",
+                        "inverse-surface": "#dce1fb",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "primary-container": "#22d3ee",
+                        "tertiary-fixed-dim": "#ffb1c6",
+                        "on-secondary-fixed": "#001a42",
+                        "on-primary-container": "#005763",
+                        "on-tertiary-container": "#9d0150",
+                        "error-container": "#93000a",
+                        "surface-container": "#191f31",
+                        "error": "#ffb4ab",
+                        "surface-container-highest": "#2e3447",
+                        "surface-tint": "#2fd9f4",
+                        "on-surface-variant": "#bbc9cd",
+                        "primary-fixed": "#a2eeff",
+                        "tertiary-fixed": "#ffd9e1",
+                        "on-secondary-container": "#e6ecff",
+                        "secondary": "#adc6ff",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#3f001c",
+                        "surface-dim": "#0c1324",
+                        "on-tertiary": "#650031",
+                        "inverse-primary": "#006877",
+                        "primary-fixed-dim": "#2fd9f4",
+                        "outline-variant": "#3c494c",
+                        "surface-container-high": "#23293c",
+                        "tertiary": "#ffd1dc",
+                        "on-primary-fixed-variant": "#004e5a",
+                        "background": "#0c1324",
+                        "secondary-container": "#0566d9",
+                        "on-surface": "#dce1fb",
+                        "on-background": "#dce1fb",
+                        "primary": "#8aebff",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-secondary": "#002e6a",
+                        "surface-bright": "#33394c",
+                        "on-secondary-fixed-variant": "#004395",
+                        "on-primary-fixed": "#001f25",
+                        "surface-container-low": "#151b2d",
+                        "on-primary": "#00363e",
+                        "inverse-on-surface": "#2a3043"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "section-gap": "5rem",
+                        "container-max": "1440px",
+                        "grid-unit": "4px",
+                        "margin": "2rem",
+                        "element-gap": "1rem",
+                        "gutter": "1.5rem"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "data-mono": ["Space Grotesk"],
+                        "headline-lg": ["Inter"],
+                        "label-caps": ["Space Grotesk"],
+                        "body-lg": ["Inter"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "data-mono": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-sm": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .cyber-grid {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid transparent;
+            background-clip: padding-box;
+            position: relative;
+        }
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            z-index: -1;
+            margin: -1px;
+            border-radius: inherit;
+            background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.02));
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen cyber-grid relative overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="bg-surface/10 backdrop-blur-xl docked full-width top-0 sticky border-b border-white/10 shadow-[0_0_15px_rgba(47,217,244,0.1)] z-50">
+<div class="flex justify-between items-center w-full px-margin py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-8">
+<a class="font-headline-md text-headline-md font-bold text-primary tracking-tighter" href="#">Phalanx AI</a>
+<div class="hidden md:flex gap-6">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md" href="#">Network</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md" href="#">Threats</a>
+<a class="text-primary border-b-2 border-primary pb-1 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md" href="#">Intelligence</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md" href="#">Assets</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="bg-surface border border-outline-variant rounded-DEFAULT py-2 pl-9 pr-4 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary transition-colors font-data-mono text-data-mono w-64 placeholder-on-surface-variant/50" placeholder="Search network..." type="text"/>
+</div>
+<button class="px-4 py-2 bg-transparent border border-primary text-primary hover:bg-primary/10 rounded-DEFAULT transition-all font-body-md text-body-md active:scale-95 transition-transform">Terminal Access</button>
+<button class="px-4 py-2 bg-primary text-on-primary hover:shadow-[0_0_15px_rgba(47,217,244,0.4)] rounded-DEFAULT transition-all font-body-md text-body-md font-bold active:scale-95 transition-transform">Deploy Shield</button>
+<img alt="Operator Profile" class="w-10 h-10 rounded-full border border-primary/30" data-alt="A futuristic portrait of a system operator in a dark cyber environment, illuminated by cyan screen glow, representing absolute security." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2A_S-nXBKKyHpSBOZuC-9ORziR7riy9WGVsUPRUWvZQf21NdOasfA3zuT0hC4l7Hyym1Dc14ARIja453EakGI6ysWFQjmWUqqhJ8A7PIohX6u5_GmCaFlm37IPhR-ZBmvjS3U2Z8yJoMFt16FttsCnfVBzgfMj44_0Hp3egVKwC8xjHzRwbmAEHFYZVKCsBpvQETOXdc-72Dd9O8qf9IhU5XEAy9jvMar7ihqhwIeQjo_3eNJ8gasSvf5aIBn59m11Sagc3VqYZo"/>
+</div>
+</div>
+</nav>
+<div class="flex max-w-container-max mx-auto h-[calc(100vh-80px)]">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col bg-surface-container-lowest/80 backdrop-blur-2xl docked left-0 h-full w-64 border-r border-outline-variant/30 shadow-2xl shadow-black py-margin shrink-0">
+<div class="px-6 mb-8">
+<h2 class="font-headline-sm text-headline-sm text-primary-fixed">Phalanx OS</h2>
+<p class="font-data-mono text-data-mono text-on-surface-variant/70 mt-1">v4.2.0-stable</p>
+</div>
+<nav class="flex-1 flex flex-col gap-2 font-label-caps text-label-caps">
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                    Command Center
+                </a>
+<a class="bg-primary-container/20 text-primary border-r-2 border-primary-fixed flex items-center gap-3 px-4 py-3 hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">analytics</span>
+                    Traffic Analysis
+                </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">security</span>
+                    Vulnerability Scan
+                </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">lock</span>
+                    Encrypted Vault
+                </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">terminal</span>
+                    System Logs
+                </a>
+</nav>
+<div class="px-4 mt-auto mb-6">
+<button class="w-full py-3 bg-error text-on-error rounded-DEFAULT font-label-caps text-label-caps font-bold hover:shadow-[0_0_15px_rgba(255,180,171,0.4)] transition-all">Force Protocol</button>
+</div>
+<div class="flex flex-col gap-2 font-label-caps text-label-caps border-t border-outline-variant/30 pt-4 px-4">
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined">help_center</span>
+                    Support
+                </a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 p-margin overflow-y-auto">
+<!-- Header section -->
+<div class="flex justify-between items-end mb-gutter">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Traffic Analysis</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Real-time deep packet inspection and flow visualization.</p>
+</div>
+<div class="flex gap-4 items-center">
+<div class="flex items-center gap-2 bg-surface-container rounded-full px-4 py-1.5 border border-outline-variant/50">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(138,235,255,0.8)]"></span>
+<span class="font-data-mono text-data-mono text-primary text-xs">LIVE</span>
+</div>
+<select class="bg-surface border border-outline-variant rounded-DEFAULT py-2 px-4 text-on-surface font-body-md text-body-md focus:border-primary focus:ring-1 focus:ring-primary">
+<option>Last 15 Minutes</option>
+<option>Last 1 Hour</option>
+<option>Last 24 Hours</option>
+</select>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Main Topology View -->
+<div class="col-span-12 lg:col-span-8 glass-card rounded-xl p-6 min-h-[400px] flex flex-col relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-50 z-0 pointer-events-none"></div>
+<div class="flex justify-between items-center mb-6 z-10">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">hub</span>
+                            Network Topology
+                        </h3>
+<div class="flex gap-2">
+<button class="p-2 bg-surface-container rounded-DEFAULT hover:bg-surface-bright transition-colors border border-outline-variant/30"><span class="material-symbols-outlined text-sm">zoom_in</span></button>
+<button class="p-2 bg-surface-container rounded-DEFAULT hover:bg-surface-bright transition-colors border border-outline-variant/30"><span class="material-symbols-outlined text-sm">zoom_out</span></button>
+</div>
+</div>
+<div class="flex-1 rounded-DEFAULT border border-outline-variant/20 bg-surface-container-lowest/50 relative flex items-center justify-center z-10" data-alt="Abstract digital visualization of a complex network topology. Glowing neon cyan and dark blue nodes interconnected by pulsating data streams on a pitch black background. Represents high-velocity enterprise security routing." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAQYhTtrFRk1IAN8OhBFC8cvUlLUjzpqIlFJI28nx-RpVP0UwSJjKp-ddVTJlQ2upkG69IwP2k5DnKJv_5c8rlR-hRom0IfxiGmOK1n2gVunC1z5X7Ndy8vC9urhPhadcmt5czLCdMVcJLpVZ4ZvXo7wKwDQdxJqchRckj_-F2Ye7eLV2yvSL7Wl5tGt6R5DBxgffmJugfSVSsEIYS-WExqxNFLE95mpVAvokoyTPeoiUgDpfFlAeeak31DHBbLDB2xm2vBkdn8wng'); background-size: cover; background-position: center; background-blend-mode: overlay;">
+<!-- Abstract Node Representation -->
+<div class="absolute w-full h-full inset-0 bg-black/60"></div>
+<div class="relative z-20 flex gap-12 items-center">
+<div class="w-16 h-16 rounded-full border-2 border-primary/50 flex items-center justify-center bg-surface/80 shadow-[0_0_20px_rgba(138,235,255,0.2)]">
+<span class="material-symbols-outlined text-primary text-3xl">language</span>
+</div>
+<div class="h-0.5 w-24 bg-gradient-to-r from-primary/50 to-error/50 relative">
+<div class="absolute -top-1 left-1/2 w-2 h-2 bg-error rounded-full animate-ping"></div>
+</div>
+<div class="w-20 h-20 rounded-full border-2 border-error/50 flex items-center justify-center bg-surface/80 shadow-[0_0_20px_rgba(255,180,171,0.2)] relative">
+<span class="material-symbols-outlined text-error text-4xl">dns</span>
+<div class="absolute -top-2 -right-2 w-6 h-6 bg-error rounded-full flex items-center justify-center font-data-mono text-[10px] text-on-error font-bold">!</div>
+</div>
+<div class="h-0.5 w-24 bg-primary/30 relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-1/3 bg-primary/80 animate-[translateX_2s_infinite]"></div>
+</div>
+<div class="w-16 h-16 rounded-full border-2 border-primary/50 flex items-center justify-center bg-surface/80">
+<span class="material-symbols-outlined text-primary text-3xl">storage</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Protocol Distribution -->
+<div class="col-span-12 lg:col-span-4 glass-card rounded-xl p-6 flex flex-col">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">donut_large</span>
+                        Protocol Distribution
+                    </h3>
+<div class="flex-1 flex flex-col justify-center gap-6">
+<!-- TCP -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<span class="font-data-mono text-data-mono text-on-surface-variant">TCP</span>
+<span class="font-data-mono text-data-mono text-primary font-bold">68%</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2">
+<div class="bg-primary h-2 rounded-full shadow-[0_0_10px_rgba(138,235,255,0.5)]" style="width: 68%"></div>
+</div>
+<span class="font-data-mono text-[10px] text-on-surface-variant/50 text-right">4.2 TB/s</span>
+</div>
+<!-- UDP -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<span class="font-data-mono text-data-mono text-on-surface-variant">UDP</span>
+<span class="font-data-mono text-data-mono text-secondary font-bold">24%</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2">
+<div class="bg-secondary h-2 rounded-full" style="width: 24%"></div>
+</div>
+<span class="font-data-mono text-[10px] text-on-surface-variant/50 text-right">1.5 TB/s</span>
+</div>
+<!-- ICMP -->
+<div class="flex flex-col gap-2">
+<div class="flex justify-between items-end">
+<span class="font-data-mono text-data-mono text-on-surface-variant">ICMP</span>
+<span class="font-data-mono text-data-mono text-tertiary font-bold">8%</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2">
+<div class="bg-tertiary h-2 rounded-full shadow-[0_0_10px_rgba(255,209,220,0.3)]" style="width: 8%"></div>
+</div>
+<span class="font-data-mono text-[10px] text-on-surface-variant/50 text-right">0.5 TB/s</span>
+</div>
+</div>
+</div>
+<!-- Active Connections Log -->
+<div class="col-span-12 glass-card rounded-xl p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">list_alt</span>
+                            Active Connections Log
+                        </h3>
+<button class="font-label-caps text-label-caps text-primary hover:text-primary-fixed-dim transition-colors flex items-center gap-1">
+                            EXPORT CSV
+                            <span class="material-symbols-outlined text-sm">download</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/30">
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant/70">Source IP</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant/70">Destination IP</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant/70">Protocol</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant/70">Origin</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant/70">Risk Score</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant/70">Status</th>
+</tr>
+</thead>
+<tbody class="font-data-mono text-data-mono">
+<tr class="border-b border-outline-variant/10 hover:bg-surface-bright/30 transition-colors">
+<td class="py-4 px-4 text-primary">192.168.1.105</td>
+<td class="py-4 px-4 text-on-surface">10.0.0.50</td>
+<td class="py-4 px-4 text-on-surface-variant">TCP/443</td>
+<td class="py-4 px-4 text-on-surface-variant flex items-center gap-2">
+<img alt="US" class="w-4 h-3 opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfWrj5XptDf-uiKd4bzkR-IpfraFsiOIcuNhElsUEvjDYmhO8aQrblEooh7469wlji2C_wSTy8FkZKXkDJ3RDSYm38NAo4MsqkvYv8tk-tIHLZk0bqXSQkf0q2NhYM3PhEJOmQuLacrt3CM2MdtgzY4fCWfApiuKX6FlaW-cYvQ9crTOANNVoyOGnystWhaMAzcJsnpgbJtp9lCTUiKJN3Ogdx4DnPf4wAlMPaxH9raZdnNstlYKfhBjBZPB4QHqUXccPn7ufTXLY"/>
+                                        United States
+                                    </td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2 text-primary">
+<span>12</span>
+<div class="w-16 h-1 bg-surface-container-highest rounded-full"><div class="h-full bg-primary rounded-full" style="width: 12%"></div></div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-primary/10 text-primary border border-primary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> SECURE
+                                        </span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/10 hover:bg-surface-bright/30 transition-colors bg-error/5">
+<td class="py-4 px-4 text-error font-bold">185.15.59.220</td>
+<td class="py-4 px-4 text-on-surface">10.0.0.12</td>
+<td class="py-4 px-4 text-on-surface-variant">TCP/22</td>
+<td class="py-4 px-4 text-on-surface-variant flex items-center gap-2">
+<img alt="RU" class="w-4 h-3 opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEQ56cm7dK8vOtcoLhsj2ee5qtk03JLyVIda-gCWjSpi51K6TUZg6FOH8RhRoZU_bmkAM91_UPMGRP7mUWwGnyqs-C9pXZhrSJHb-CLBgkjNiSRT9T4ztvWx3ef1bXmxc_zkDYTFW6cwyY7pcWfMwNhI7kW3wbs2zVHlU0TDmHuKY4nP8mn03Zg3Z_8gljcZZBNDH_9aMnlm4YfE80M3Ga9mDSWjnLdkjUFKzhGBJYTrei54Xq5wkhqcm7FHxjCRHla9diuRpNTSQ"/>
+                                        Russia
+                                    </td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2 text-error">
+<span>94</span>
+<div class="w-16 h-1 bg-surface-container-highest rounded-full"><div class="h-full bg-error rounded-full shadow-[0_0_8px_rgba(255,180,171,0.6)]" style="width: 94%"></div></div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-error/10 text-error border border-error/20">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span> THREAT
+                                        </span>
+</td>
+</tr>
+<tr class="border-b border-outline-variant/10 hover:bg-surface-bright/30 transition-colors">
+<td class="py-4 px-4 text-primary">10.0.5.22</td>
+<td class="py-4 px-4 text-on-surface">8.8.8.8</td>
+<td class="py-4 px-4 text-on-surface-variant">UDP/53</td>
+<td class="py-4 px-4 text-on-surface-variant flex items-center gap-2">
+<img alt="DE" class="w-4 h-3 opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuACNgsyZji7b5x_MWER3nF0SqyuSg5_isbMQfWGrYjTYhu7d-2rLfWSNEaRagxQ3rdqjJptbPHnR70eAM1fOOFVDAe45D564wCe6olkEo_M612tlNeBva5t2w3g_uFK9b7LT9SzxW7A2Em6sJ749rN9SRL5y7NECS8ze6genQHGlYM6-qyIBaNhi-vRrGyxrxeIJqoJmFpkITpcR8XTyhVTxImUuLWHfsJvjLILyxbWZVG0LVCf8FLGjsW2q4hygEVg-_4IT053Iqw"/>
+                                        Germany
+                                    </td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2 text-primary">
+<span>05</span>
+<div class="w-16 h-1 bg-surface-container-highest rounded-full"><div class="h-full bg-primary rounded-full" style="width: 5%"></div></div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-primary/10 text-primary border border-primary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> SECURE
+                                        </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-bright/30 transition-colors">
+<td class="py-4 px-4 text-primary">172.16.0.4</td>
+<td class="py-4 px-4 text-on-surface">192.168.1.1</td>
+<td class="py-4 px-4 text-on-surface-variant">ICMP</td>
+<td class="py-4 px-4 text-on-surface-variant flex items-center gap-2">
+<span class="text-[10px] text-outline px-1 border border-outline rounded-sm">INT</span>
+                                        Internal
+                                    </td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2 text-primary">
+<span>01</span>
+<div class="w-16 h-1 bg-surface-container-highest rounded-full"><div class="h-full bg-primary rounded-full" style="width: 1%"></div></div>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold bg-primary/10 text-primary border border-primary/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span> SECURE
+                                        </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest full-width py-section-gap border-t border-surface-container-highest flat no shadows z-10 relative">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-margin">
+<div>
+<p class="font-headline-sm text-headline-sm text-primary mb-4">Phalanx AI</p>
+<p class="font-body-md text-body-md text-on-surface-variant">© 2024 Phalanx AI. Engineered for Absolute Sovereignty.</p>
+</div>
+<div class="flex flex-col gap-2">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Zero Trust Path</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">API Docs</a>
+</div>
+<div class="flex flex-col gap-2">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Protocol</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Warrant Canary</a>
+</div>
+<div class="flex items-end justify-end">
+<div class="flex gap-4">
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">shield</span></a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">terminal</span></a>
+</div>
+</div>
+</div>
+</footer>
+</body></html>

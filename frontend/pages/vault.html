@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Encrypted Vault - Phalanx OS</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "tertiary-container": "#ffa8c1",
+                        "on-tertiary-fixed-variant": "#8e0048",
+                        "on-error": "#690005",
+                        "surface-variant": "#2e3447",
+                        "surface-container-lowest": "#070d1f",
+                        "outline": "#859397",
+                        "surface": "#0c1324",
+                        "inverse-surface": "#dce1fb",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "primary-container": "#22d3ee",
+                        "tertiary-fixed-dim": "#ffb1c6",
+                        "on-secondary-fixed": "#001a42",
+                        "on-primary-container": "#005763",
+                        "on-tertiary-container": "#9d0150",
+                        "error-container": "#93000a",
+                        "surface-container": "#191f31",
+                        "error": "#ffb4ab",
+                        "surface-container-highest": "#2e3447",
+                        "surface-tint": "#2fd9f4",
+                        "on-surface-variant": "#bbc9cd",
+                        "primary-fixed": "#a2eeff",
+                        "tertiary-fixed": "#ffd9e1",
+                        "on-secondary-container": "#e6ecff",
+                        "secondary": "#adc6ff",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#3f001c",
+                        "surface-dim": "#0c1324",
+                        "on-tertiary": "#650031",
+                        "inverse-primary": "#006877",
+                        "primary-fixed-dim": "#2fd9f4",
+                        "outline-variant": "#3c494c",
+                        "surface-container-high": "#23293c",
+                        "tertiary": "#ffd1dc",
+                        "on-primary-fixed-variant": "#004e5a",
+                        "background": "#0c1324",
+                        "secondary-container": "#0566d9",
+                        "on-surface": "#dce1fb",
+                        "on-background": "#dce1fb",
+                        "primary": "#8aebff",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-secondary": "#002e6a",
+                        "surface-bright": "#33394c",
+                        "on-secondary-fixed-variant": "#004395",
+                        "on-primary-fixed": "#001f25",
+                        "surface-container-low": "#151b2d",
+                        "on-primary": "#00363e",
+                        "inverse-on-surface": "#2a3043"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "section-gap": "5rem",
+                        "container-max": "1440px",
+                        "grid-unit": "4px",
+                        "margin": "2rem",
+                        "element-gap": "1rem",
+                        "gutter": "1.5rem"
+                    },
+                    fontFamily: {
+                        "body-md": ["Inter", "sans-serif"],
+                        "headline-md": ["Inter", "sans-serif"],
+                        "data-mono": ["Space Grotesk", "monospace"],
+                        "headline-lg": ["Inter", "sans-serif"],
+                        "label-caps": ["Space Grotesk", "sans-serif"],
+                        "body-lg": ["Inter", "sans-serif"],
+                        "headline-sm": ["Inter", "sans-serif"]
+                    },
+                    fontSize: {
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "data-mono": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-sm": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Level 0 Base Grid Pattern */
+        .cyber-grid-bg {
+            background-color: #000000;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        /* Level 2 Glass Card Sub-surface */
+        .glass-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        /* Hairline Gradient Border Illusion for Glass Cards */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.02) 100%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        /* Material Icon Base */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Custom Scrollbar for Main Canvas */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2e3447;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #859397;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex overflow-hidden cyber-grid-bg">
+<!-- SideNavBar (Shared Component) -->
+<aside class="bg-surface-container-lowest/80 backdrop-blur-2xl docked left-0 h-screen w-64 border-r border-outline-variant/30 shadow-2xl shadow-black flex flex-col h-full py-margin shrink-0 z-20">
+<!-- Header -->
+<div class="px-6 mb-12 flex items-center gap-4">
+<div class="w-10 h-10 rounded-DEFAULT bg-surface-variant flex items-center justify-center overflow-hidden border border-outline-variant/50">
+<span class="material-symbols-outlined text-primary" data-icon="shield">shield</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm text-primary-fixed tracking-tight">Phalanx OS</h1>
+<p class="font-data-mono text-data-mono text-on-surface-variant text-[10px] opacity-70">v4.2.0-stable</p>
+</div>
+</div>
+<!-- Primary Navigation -->
+<nav class="flex-1 flex flex-col gap-2">
+<!-- Command Center -->
+<a class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all duration-200 group font-label-caps text-label-caps" href="/">
+<span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform" data-icon="dashboard">dashboard</span>
+                Command Center
+            </a>
+<!-- Traffic Analysis -->
+<a class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all duration-200 group font-label-caps text-label-caps" href="/pages/traffic.html">
+<span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform" data-icon="analytics">analytics</span>
+                Traffic Analysis
+            </a>
+<!-- Vulnerability Scan -->
+<a class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all duration-200 group font-label-caps text-label-caps" href="/pages/scanner.html">
+<span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform" data-icon="security">security</span>
+                Vulnerability Scan
+            </a>
+<!-- Encrypted Vault (ACTIVE) -->
+<a class="bg-primary-container/20 text-primary border-r-2 border-primary-fixed flex items-center gap-3 px-6 py-3 font-label-caps text-label-caps relative overflow-hidden" href="/pages/vault.html">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent to-primary/5"></div>
+<span class="material-symbols-outlined text-xl fill" data-icon="lock" data-weight="fill">lock</span>
+<span class="relative z-10">Encrypted Vault</span>
+</a>
+<!-- System Logs -->
+<a class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all duration-200 group font-label-caps text-label-caps" href="/pages/logs.html">
+<span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform" data-icon="terminal">terminal</span>
+                System Logs
+            </a>
+</nav>
+<!-- CTA Action -->
+<div class="px-6 mt-8 mb-4">
+<button class="w-full bg-primary text-on-primary py-3 px-4 rounded-DEFAULT font-label-caps text-label-caps flex items-center justify-center gap-2 hover:bg-primary-fixed transition-colors shadow-[0_0_15px_rgba(34,211,238,0.3)] hover:shadow-[0_0_20px_rgba(34,211,238,0.6)]">
+<span class="material-symbols-outlined text-sm" data-icon="bolt">bolt</span>
+                Force Protocol
+            </button>
+</div>
+<!-- Footer Navigation -->
+<div class="mt-auto border-t border-outline-variant/30 pt-4 flex flex-col gap-1">
+<a class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all duration-200 group font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform" data-icon="settings">settings</span>
+                Settings
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all duration-200 group font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform" data-icon="help_center">help_center</span>
+                Support
+            </a>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 relative overflow-y-auto z-10 flex flex-col">
+<!-- Decorative Header / Context Area -->
+<div class="w-full h-64 relative shrink-0 border-b border-white/5" data-alt="A highly abstract, dark, and menacing visualization of a digital containment zone. Complex web-like geometric structures glow faintly with cyan and cyber pink hues against a pitch-black background. The lighting is low-key, creating a moody, industrial aesthetic that emphasizes deep shadows and sharp, precise technical lines. The overall mood is clinical, secure, and slightly ominous, suggesting advanced cryptographic isolation." style="background-image: linear-gradient(to bottom, rgba(12, 19, 36, 0.2), #0c1324), url('https://lh3.googleusercontent.com/aida-public/AB6AXuC0tYYcYTZVFNXujgYO3MXGd2jvnLqDpnyn8SfOs6h2LIjTGbBMK-ks1Hd2GsQ2sk4Sqng0pSTmXQI2-kySKsxKI82BmCydNtSbceE7JFzhPMeksjwbaRauWeT1hw7IVmC6bAQ-NRlLC_HTWrKHRQ9tghX8H49jY865sEEfnkJB0sq7xmuQc6JsowLzC8hpyKwf2T6gmaciJLNboKbjNYWuvSy6otiW9oP2vORVGdANxLAXkO6oaB6Hu-SptXvNSVbs1_yWMb2xKf0'); background-size: cover; background-position: center;">
+<!-- Vault Status Overlay -->
+<div class="absolute bottom-0 left-0 right-0 p-10 max-w-container-max mx-auto flex items-end justify-between w-full">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_#8aebff]"></span>
+<span class="font-data-mono text-data-mono text-primary uppercase tracking-widest text-[10px]">Vault Status: Maximum Security</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-background mb-2">Encrypted Vault</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Isolated holding environment for high-risk anomalies, cryptographic payloads, and classified digital assets. All entries are subject to Zero Trust protocols.</p>
+</div>
+<!-- Global Action -->
+<div class="flex gap-4">
+<button class="glass-card px-6 py-3 rounded-DEFAULT font-label-caps text-label-caps text-error border-error/50 hover:bg-error/10 hover:border-error transition-all flex items-center gap-2 group">
+<span class="material-symbols-outlined text-base group-hover:rotate-12 transition-transform" data-icon="delete_forever">delete_forever</span>
+                        Global Purge
+                    </button>
+</div>
+</div>
+</div>
+<!-- Content Area -->
+<div class="p-10 flex-1 max-w-container-max mx-auto w-full flex flex-col gap-6">
+<!-- Controls / Filters -->
+<div class="flex items-center justify-between glass-card p-4 rounded-xl mb-4">
+<div class="flex items-center gap-4 w-1/3">
+<span class="material-symbols-outlined text-outline ml-2" data-icon="search">search</span>
+<input class="bg-transparent border-none text-on-surface focus:ring-0 w-full font-data-mono text-data-mono placeholder-outline outline-none" placeholder="Search by Hash or Signature..." type="text"/>
+</div>
+<div class="flex items-center gap-2 border-l border-white/10 pl-4">
+<button class="px-4 py-1.5 rounded-full bg-surface-bright text-on-surface font-label-caps text-[10px] border border-white/5">All Assets</button>
+<button class="px-4 py-1.5 rounded-full bg-transparent text-on-surface-variant hover:text-on-surface font-label-caps text-[10px] border border-transparent hover:border-white/5 transition-all">Quarantined</button>
+<button class="px-4 py-1.5 rounded-full bg-transparent text-on-surface-variant hover:text-on-surface font-label-caps text-[10px] border border-transparent hover:border-white/5 transition-all">Classified</button>
+</div>
+</div>
+<!-- Asset List (Bento/Card Rows) -->
+<div class="flex flex-col gap-4">
+<!-- Asset Item 1 -->
+<div class="glass-card rounded-xl p-6 flex items-center justify-between group hover:bg-white/[0.05] transition-colors border-l-4 border-l-error">
+<!-- Identification Info -->
+<div class="flex items-start gap-6 w-1/3">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center border border-white/5 shrink-0 group-hover:border-error/30 transition-colors">
+<span class="material-symbols-outlined text-error text-2xl" data-icon="bug_report">bug_report</span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-data-mono text-data-mono text-on-surface text-lg">0xAF9B...3F2A</span>
+<span class="material-symbols-outlined text-outline text-sm cursor-pointer hover:text-primary" data-icon="content_copy">content_copy</span>
+</div>
+<p class="font-body-md text-[13px] text-outline">Unknown Executable Binary</p>
+</div>
+</div>
+<!-- Status & Meta -->
+<div class="flex flex-col gap-2 w-1/4">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-primary-container/10 text-primary border border-primary/20 font-data-mono text-[10px]">PQ-Crypto</span>
+<span class="px-2 py-0.5 rounded bg-error-container/20 text-error border border-error/20 font-label-caps text-[10px] flex items-center gap-1">
+<span class="w-1 h-1 rounded-full bg-error"></span> Isolated
+                            </span>
+</div>
+<div class="flex items-center gap-4 font-data-mono text-[11px] text-outline-variant">
+<span>SIZE: 4.2 MB</span>
+<span>IN: 12:44:09 UTC</span>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-3 shrink-0">
+<button class="px-5 py-2 rounded-DEFAULT bg-transparent border border-outline-variant text-on-surface-variant hover:border-error hover:text-error transition-all font-label-caps text-[11px] tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="delete">delete</span>
+                            Permanent Purge
+                        </button>
+<button class="px-5 py-2 rounded-DEFAULT bg-error text-on-error hover:bg-red-500 transition-all font-label-caps text-[11px] tracking-wider shadow-[0_0_10px_rgba(255,180,171,0.2)] hover:shadow-[0_0_15px_rgba(255,180,171,0.4)] flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="science">science</span>
+                            Detonate in Sandbox
+                        </button>
+</div>
+</div>
+<!-- Asset Item 2 -->
+<div class="glass-card rounded-xl p-6 flex items-center justify-between group hover:bg-white/[0.05] transition-colors border-l-4 border-l-primary">
+<!-- Identification Info -->
+<div class="flex items-start gap-6 w-1/3">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center border border-white/5 shrink-0 group-hover:border-primary/30 transition-colors">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="folder_locked">folder_open</span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-data-mono text-data-mono text-on-surface text-lg">0x7C21...E88D</span>
+<span class="material-symbols-outlined text-outline text-sm cursor-pointer hover:text-primary" data-icon="content_copy">content_copy</span>
+</div>
+<p class="font-body-md text-[13px] text-outline">Classified Dossier Archive</p>
+</div>
+</div>
+<!-- Status & Meta -->
+<div class="flex flex-col gap-2 w-1/4">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-surface-bright text-on-surface-variant border border-outline-variant/30 font-data-mono text-[10px]">AES-256</span>
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-outline border border-outline-variant/30 font-label-caps text-[10px] flex items-center gap-1">
+<span class="w-1 h-1 rounded-full bg-outline"></span> Secured
+                            </span>
+</div>
+<div class="flex items-center gap-4 font-data-mono text-[11px] text-outline-variant">
+<span>SIZE: 128 MB</span>
+<span>IN: 08:12:33 UTC</span>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-3 shrink-0">
+<button class="px-5 py-2 rounded-DEFAULT bg-transparent border border-outline-variant text-on-surface-variant hover:border-surface-tint hover:text-surface-tint transition-all font-label-caps text-[11px] tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                            Extract Decrypted
+                        </button>
+<button class="px-5 py-2 rounded-DEFAULT bg-surface-bright text-on-surface border border-transparent hover:border-white/20 transition-all font-label-caps text-[11px] tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="lock_open">lock_open</span>
+                            Request Access
+                        </button>
+</div>
+</div>
+<!-- Asset Item 3 -->
+<div class="glass-card rounded-xl p-6 flex items-center justify-between group hover:bg-white/[0.05] transition-colors border-l-4 border-l-tertiary-container">
+<!-- Identification Info -->
+<div class="flex items-start gap-6 w-1/3">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center border border-white/5 shrink-0 group-hover:border-tertiary-container/30 transition-colors">
+<span class="material-symbols-outlined text-tertiary-container text-2xl" data-icon="memory">memory</span>
+</div>
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="font-data-mono text-data-mono text-on-surface text-lg">0x1A4F...99BC</span>
+<span class="material-symbols-outlined text-outline text-sm cursor-pointer hover:text-primary" data-icon="content_copy">content_copy</span>
+</div>
+<p class="font-body-md text-[13px] text-outline">Suspicious Memory Dump</p>
+</div>
+</div>
+<!-- Status & Meta -->
+<div class="flex flex-col gap-2 w-1/4">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded bg-primary-container/10 text-primary border border-primary/20 font-data-mono text-[10px]">PQ-Crypto</span>
+<span class="px-2 py-0.5 rounded bg-tertiary-container/10 text-tertiary-container border border-tertiary-container/30 font-label-caps text-[10px] flex items-center gap-1">
+<span class="w-1 h-1 rounded-full bg-tertiary-container animate-ping absolute opacity-75"></span>
+<span class="w-1 h-1 rounded-full bg-tertiary-container relative"></span> Analyzing
+                            </span>
+</div>
+<div class="flex items-center gap-4 font-data-mono text-[11px] text-outline-variant">
+<span>SIZE: 2.1 GB</span>
+<span>IN: 14:02:11 UTC</span>
+</div>
+</div>
+<!-- Actions -->
+<div class="flex items-center gap-3 shrink-0">
+<button class="px-5 py-2 rounded-DEFAULT bg-transparent border border-outline-variant text-on-surface-variant hover:border-error hover:text-error transition-all font-label-caps text-[11px] tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="delete">delete</span>
+                            Permanent Purge
+                        </button>
+<button class="px-5 py-2 rounded-DEFAULT bg-surface-bright text-on-surface border border-transparent hover:border-white/20 transition-all font-label-caps text-[11px] tracking-wider flex items-center gap-2 opacity-50 cursor-not-allowed" disabled="">
+<span class="material-symbols-outlined text-sm" data-icon="hourglass_empty">hourglass_empty</span>
+                            Processing...
+                        </button>
+</div>
+</div>
+</div>
+<!-- Bottom Spacer for visual breathing room -->
+<div class="h-12"></div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>System Logs - Phalanx OS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#ffa8c1",
+                        "on-tertiary-fixed-variant": "#8e0048",
+                        "on-error": "#690005",
+                        "surface-variant": "#2e3447",
+                        "surface-container-lowest": "#070d1f",
+                        "outline": "#859397",
+                        "surface": "#0c1324",
+                        "inverse-surface": "#dce1fb",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "primary-container": "#22d3ee",
+                        "tertiary-fixed-dim": "#ffb1c6",
+                        "on-secondary-fixed": "#001a42",
+                        "on-primary-container": "#005763",
+                        "on-tertiary-container": "#9d0150",
+                        "error-container": "#93000a",
+                        "surface-container": "#191f31",
+                        "error": "#ffb4ab",
+                        "surface-container-highest": "#2e3447",
+                        "surface-tint": "#2fd9f4",
+                        "on-surface-variant": "#bbc9cd",
+                        "primary-fixed": "#a2eeff",
+                        "tertiary-fixed": "#ffd9e1",
+                        "on-secondary-container": "#e6ecff",
+                        "secondary": "#adc6ff",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary-fixed": "#3f001c",
+                        "surface-dim": "#0c1324",
+                        "on-tertiary": "#650031",
+                        "inverse-primary": "#006877",
+                        "primary-fixed-dim": "#2fd9f4",
+                        "outline-variant": "#3c494c",
+                        "surface-container-high": "#23293c",
+                        "tertiary": "#ffd1dc",
+                        "on-primary-fixed-variant": "#004e5a",
+                        "background": "#0c1324",
+                        "secondary-container": "#0566d9",
+                        "on-surface": "#dce1fb",
+                        "on-background": "#dce1fb",
+                        "primary": "#8aebff",
+                        "secondary-fixed": "#d8e2ff",
+                        "on-secondary": "#002e6a",
+                        "surface-bright": "#33394c",
+                        "on-secondary-fixed-variant": "#004395",
+                        "on-primary-fixed": "#001f25",
+                        "surface-container-low": "#151b2d",
+                        "on-primary": "#00363e",
+                        "inverse-on-surface": "#2a3043"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "section-gap": "5rem",
+                        "container-max": "1440px",
+                        "grid-unit": "4px",
+                        "margin": "2rem",
+                        "element-gap": "1rem",
+                        "gutter": "1.5rem"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "data-mono": ["Space Grotesk"],
+                        "headline-lg": ["Inter"],
+                        "label-caps": ["Space Grotesk"],
+                        "body-lg": ["Inter"],
+                        "headline-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-md": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "data-mono": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-sm": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .cyber-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid transparent;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03)), linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.02) 100%);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md cyber-grid min-h-screen flex overflow-hidden">
+<!-- SideNavBar (from JSON, System Logs Active) -->
+<nav class="bg-surface-container-lowest/80 backdrop-blur-2xl text-primary font-label-caps text-label-caps docked left-0 h-screen w-64 border-r border-outline-variant/30 shadow-2xl shadow-black flex flex-col h-full py-margin z-50 shrink-0">
+<!-- Brand Header -->
+<div class="px-4 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant overflow-hidden border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-xl">admin_panel_settings</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm text-primary-fixed font-bold tracking-tighter">Phalanx OS</h1>
+<span class="font-data-mono text-data-mono text-on-surface-variant text-xs opacity-70">v4.2.0-stable</span>
+</div>
+</div>
+</div>
+<!-- Navigation Links -->
+<div class="flex-1 space-y-2">
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">dashboard</span>
+                Command Center
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">analytics</span>
+                Traffic Analysis
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">security</span>
+                Vulnerability Scan
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">lock</span>
+                Encrypted Vault
+            </a>
+<!-- Active State -->
+<a class="bg-primary-container/20 text-primary border-r-2 border-primary-fixed flex items-center gap-3 px-4 py-3" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">terminal</span>
+                System Logs
+            </a>
+</div>
+<!-- Footer Links -->
+<div class="mt-auto space-y-2 pt-4 border-t border-outline-variant/30">
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
+                Settings
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">help_center</span>
+                Support
+            </a>
+</div>
+<!-- CTA -->
+<div class="px-4 mt-6">
+<button class="w-full bg-primary/10 border border-primary text-primary font-label-caps text-label-caps py-3 rounded hover:bg-primary/20 transition-colors uppercase tracking-widest">
+                Force Protocol
+            </button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden relative z-10 bg-gradient-to-b from-transparent to-[#020617]/90">
+<!-- Header Controls -->
+<header class="h-20 shrink-0 px-8 flex items-center justify-between border-b border-outline-variant/30 glass-panel">
+<div class="flex items-center gap-4 w-1/2">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-DEFAULT py-2 pl-10 pr-4 font-data-mono text-data-mono text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors placeholder-on-surface-variant/50" placeholder="Filter by timestamp, process, or hash..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_theme(colors.primary)]"></span>
+<span class="font-data-mono text-data-mono text-primary text-xs uppercase tracking-widest">Live Tail Active</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-2">
+<button class="px-3 py-1.5 rounded bg-surface-container border border-outline-variant text-on-surface-variant font-data-mono text-xs hover:bg-surface-variant transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">filter_alt</span> Levels
+                    </button>
+<button class="px-3 py-1.5 rounded bg-surface-container border border-outline-variant text-on-surface-variant font-data-mono text-xs hover:bg-surface-variant transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">history</span> History
+                    </button>
+</div>
+<button class="bg-primary hover:bg-primary-fixed-dim text-on-primary font-label-caps text-label-caps px-6 py-2.5 rounded-DEFAULT transition-all duration-300 shadow-[0_0_15px_rgba(47,217,244,0.3)] hover:shadow-[0_0_25px_rgba(47,217,244,0.5)] flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">download</span>
+                    Export for Forensic Analysis
+                </button>
+</div>
+</header>
+<!-- Terminal Viewer -->
+<div class="flex-1 p-6 overflow-hidden flex flex-col">
+<div class="glass-panel flex-1 rounded-xl flex flex-col overflow-hidden border border-outline-variant/30 relative">
+<!-- Terminal Header Bar -->
+<div class="h-10 bg-surface-container-lowest border-b border-outline-variant/30 flex items-center justify-between px-4 shrink-0">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">terminal</span>
+<span class="font-data-mono text-xs text-on-surface-variant tracking-wider">/var/log/phalanx/engine.log</span>
+</div>
+<div class="flex items-center gap-4 font-data-mono text-xs text-on-surface-variant">
+<span>Lines: <span class="text-on-surface">1,024,892</span></span>
+<span>Size: <span class="text-on-surface">4.2 GB</span></span>
+</div>
+</div>
+<!-- Log Content Area -->
+<div class="flex-1 overflow-y-auto p-4 font-data-mono text-data-mono leading-relaxed custom-scrollbar bg-[#000000]/40">
+<table class="w-full text-left border-collapse">
+<tbody class="space-y-1">
+<!-- Log Entry: INFO -->
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="w-48 py-1 align-top text-on-surface-variant/70 shrink-0">2024-10-24 14:32:01.442</td>
+<td class="w-24 py-1 align-top px-2">
+<span class="text-primary bg-primary/10 px-2 py-0.5 rounded text-[10px] uppercase tracking-widest border border-primary/20">INFO</span>
+</td>
+<td class="w-32 py-1 align-top text-secondary/70">[core_init]</td>
+<td class="py-1 align-top text-on-surface group-hover:text-white transition-colors">
+                                    Daemon successfully attached to kernel module. Listening on interface eth0.
+                                </td>
+</tr>
+<!-- Log Entry: WARN -->
+<tr class="hover:bg-white/5 transition-colors group bg-secondary/5">
+<td class="w-48 py-1 align-top text-on-surface-variant/70 shrink-0">2024-10-24 14:32:15.891</td>
+<td class="w-24 py-1 align-top px-2">
+<span class="text-tertiary-container bg-tertiary-container/10 px-2 py-0.5 rounded text-[10px] uppercase tracking-widest border border-tertiary-container/20">WARN</span>
+</td>
+<td class="w-32 py-1 align-top text-secondary/70">[auth_srv]</td>
+<td class="py-1 align-top text-on-surface group-hover:text-white transition-colors">
+                                    Unexpected latency detected during handshake with vault-node-03. Latency: 145ms (Threshold: 50ms).
+                                </td>
+</tr>
+<!-- Log Entry: INFO -->
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="w-48 py-1 align-top text-on-surface-variant/70 shrink-0">2024-10-24 14:32:18.005</td>
+<td class="w-24 py-1 align-top px-2">
+<span class="text-primary bg-primary/10 px-2 py-0.5 rounded text-[10px] uppercase tracking-widest border border-primary/20">INFO</span>
+</td>
+<td class="w-32 py-1 align-top text-secondary/70">[net_scan]</td>
+<td class="py-1 align-top text-on-surface group-hover:text-white transition-colors">
+                                    Routine sweep completed. 1,024 ports scanned on target subnet 10.0.0.0/24. No anomalies.
+                                </td>
+</tr>
+<!-- Log Entry: ALERT (Anomalies) -->
+<tr class="hover:bg-white/5 transition-colors group bg-tertiary/10 border-l-2 border-tertiary">
+<td class="w-48 py-1 align-top text-tertiary/70 shrink-0 pl-2">2024-10-24 14:33:42.119</td>
+<td class="w-24 py-1 align-top px-2">
+<span class="text-tertiary bg-tertiary/20 px-2 py-0.5 rounded text-[10px] uppercase tracking-widest border border-tertiary/40 font-bold shadow-[0_0_8px_theme(colors.tertiary)]">ALERT</span>
+</td>
+<td class="w-32 py-1 align-top text-tertiary/80">[IDS_engine]</td>
+<td class="py-1 align-top text-tertiary-fixed font-bold group-hover:text-white transition-colors">
+                                    Pattern match: Potential SQL injection payload detected in inbound traffic. Source IP: 192.168.1.105. Dropping packet.
+                                    <br/>
+<span class="text-on-surface-variant font-normal mt-1 block">Payload snippet: <span class="bg-surface-container px-1 py-0.5 rounded text-error/80 border border-error/20">' OR 1=1; DROP TABLE users; --</span></span>
+</td>
+</tr>
+<!-- Log Entry: CRITICAL -->
+<tr class="hover:bg-white/5 transition-colors group bg-error/10 border-l-2 border-error">
+<td class="w-48 py-1 align-top text-error/70 shrink-0 pl-2">2024-10-24 14:34:01.002</td>
+<td class="w-24 py-1 align-top px-2">
+<span class="text-on-error bg-error px-2 py-0.5 rounded text-[10px] uppercase tracking-widest font-bold shadow-[0_0_10px_theme(colors.error)] animate-pulse">CRITICAL</span>
+</td>
+<td class="w-32 py-1 align-top text-error/80">[kernel_mon]</td>
+<td class="py-1 align-top text-error font-bold group-hover:text-white transition-colors">
+                                    UNAUTHORIZED ESCALATION ATTEMPT. Process ID 9042 (bash) attempting to patch syscall table. 
+                                    <br/>
+<span class="text-on-surface-variant font-normal mt-1 block">Action: Immediate termination of PID 9042. Triggering forensic snapshot.</span>
+</td>
+</tr>
+<!-- Log Entry: INFO -->
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="w-48 py-1 align-top text-on-surface-variant/70 shrink-0">2024-10-24 14:34:02.155</td>
+<td class="w-24 py-1 align-top px-2">
+<span class="text-primary bg-primary/10 px-2 py-0.5 rounded text-[10px] uppercase tracking-widest border border-primary/20">INFO</span>
+</td>
+<td class="w-32 py-1 align-top text-secondary/70">[sys_guard]</td>
+<td class="py-1 align-top text-on-surface group-hover:text-white transition-colors">
+                                    Snapshot completed. Hash: a9f8b4c2d1e0... Stored in encrypted vault.
+                                </td>
+</tr>
+<!-- Log Entry: INFO -->
+<tr class="hover:bg-white/5 transition-colors group">
+<td class="w-48 py-1 align-top text-on-surface-variant/70 shrink-0">2024-10-24 14:34:05.881</td>
+<td class="w-24 py-1 align-top px-2">
+<span class="text-primary bg-primary/10 px-2 py-0.5 rounded text-[10px] uppercase tracking-widest border border-primary/20">INFO</span>
+</td>
+<td class="w-32 py-1 align-top text-secondary/70">[core_init]</td>
+<td class="py-1 align-top text-on-surface group-hover:text-white transition-colors">
+                                    Resuming normal monitoring state.
+                                </td>
+</tr>
+</tbody>
+</table>
+<!-- Faux scroll indicator at bottom -->
+<div class="h-8 flex items-center justify-center mt-4 border-t border-outline-variant/10 text-on-surface-variant/50">
+<span class="material-symbols-outlined text-sm animate-bounce">arrow_downward</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<style>
+        /* Custom scrollbar for terminal */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(138, 235, 255, 0.2); 
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(138, 235, 255, 0.4);
+        }
+    </style>
+</body></html>
