@@ -13,15 +13,14 @@ app.use(cors());
 app.use(express.json());
 
 // Serve static frontend files
-app.use(express.static(path.join(__dirname, '../frontend')));
-app.use('/pages', express.static(path.join(__dirname, '../frontend/pages')));
+app.use(express.static(path.join(__dirname, '../public')));
 
 // API Routes
 app.use('/api', scanRoutes);
 
-// Fallback to dashboard for any other route (SPA-like navigation)
+// Fallback to dashboard
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/pages/index.html'));
+    res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
 app.listen(PORT, () => {
