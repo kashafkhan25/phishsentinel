@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node backend/server.js",
     "dev": "nodemon backend/server.js",
-    "build:cpp": "g++ -std=c++17 backend/cpp-engine/*.cpp -o backend/cpp-engine/engine"
+    "build:cpp": "g++ -std=c++17 backend/cpp-engine/*.cpp -o backend/cpp-engine/engine",
+    "vercel-build": "npm run build:cpp"
   },
   "dependencies": {
     "express": "^4.18.2",
