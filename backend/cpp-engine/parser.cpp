@@ -1,12 +1,7 @@
+#include "engine.h"
 #include <iostream>
 #include <string>
 #include <vector>
-
-struct URLParts {
-    std::string protocol;
-    std::string domain;
-    std::string path;
-};
 
 URLParts parseURL(const std::string& url) {
     URLParts parts;
@@ -37,4 +32,22 @@ URLParts parseURL(const std::string& url) {
     }
     
     return parts;
+}
+
+bool isIPAddress(const std::string& domain) {
+    int dots = 0;
+    bool allDigits = true;
+    for (char c : domain) {
+        if (c == '.') dots++;
+        else if (!isdigit(c)) allDigits = false;
+    }
+    return dots == 3 && allDigits;
+}
+
+int countSubdomains(const std::string& domain) {
+    int dots = 0;
+    for (char c : domain) {
+        if (c == '.') dots++;
+    }
+    return dots;
 }

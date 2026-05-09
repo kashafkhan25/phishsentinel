@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Phalanx AI - Threats</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#2fd9f4",
+                        "on-tertiary-fixed": "#3f001c",
+                        "surface-dim": "#0c1324",
+                        "surface-container": "#191f31",
+                        "secondary-fixed": "#d8e2ff",
+                        "tertiary": "#ffd1dc",
+                        "surface-container-highest": "#2e3447",
+                        "on-primary-container": "#005763",
+                        "outline-variant": "#3c494c",
+                        "on-secondary": "#002e6a",
+                        "outline": "#859397",
+                        "surface-variant": "#2e3447",
+                        "inverse-primary": "#006877",
+                        "error": "#ffb4ab",
+                        "on-background": "#dce1fb",
+                        "surface-container-high": "#23293c",
+                        "surface": "#0c1324",
+                        "on-primary-fixed": "#001f25",
+                        "on-tertiary-fixed-variant": "#8e0048",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#a2eeff",
+                        "inverse-on-surface": "#2a3043",
+                        "primary": "#8aebff",
+                        "on-tertiary": "#650031",
+                        "on-primary-fixed-variant": "#004e5a",
+                        "on-secondary-container": "#e6ecff",
+                        "tertiary-fixed-dim": "#ffb1c6",
+                        "on-surface": "#dce1fb",
+                        "surface-container-lowest": "#070d1f",
+                        "secondary-container": "#0566d9",
+                        "surface-tint": "#2fd9f4",
+                        "surface-container-low": "#151b2d",
+                        "inverse-surface": "#dce1fb",
+                        "secondary": "#adc6ff",
+                        "on-tertiary-container": "#9d0150",
+                        "on-secondary-fixed": "#001a42",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "background": "#0c1324",
+                        "tertiary-container": "#ffa8c1",
+                        "on-secondary-fixed-variant": "#004395",
+                        "primary-container": "#22d3ee",
+                        "error-container": "#93000a",
+                        "on-surface-variant": "#bbc9cd",
+                        "on-primary": "#00363e",
+                        "tertiary-fixed": "#ffd9e1",
+                        "surface-bright": "#33394c",
+                        "on-error": "#690005"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "section-gap": "5rem",
+                        "container-max": "1440px",
+                        "gutter": "1.5rem",
+                        "margin": "2rem",
+                        "grid-unit": "4px",
+                        "element-gap": "1rem"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "data-mono": ["Space Grotesk"],
+                        "headline-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-caps": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "data-mono": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "headline-sm": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .cyber-grid {
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid transparent;
+            border-image: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.02) 100%) 1;
+        }
+        .text-glow-primary {
+            text-shadow: 0 0 10px rgba(138, 235, 255, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased min-h-screen relative overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- Ambient Grid Background -->
+<div class="fixed inset-0 z-0 cyber-grid pointer-events-none"></div>
+
+<!-- TopNavBar -->
+<nav class="bg-surface/10 backdrop-blur-xl docked full-width top-0 sticky border-b border-white/10 shadow-[0_0_15px_rgba(47,217,244,0.1)] z-50">
+<div class="flex justify-between items-center w-full px-margin py-4 max-w-container-max mx-auto">
+<div class="flex items-center gap-8">
+<div class="font-headline-md text-headline-md font-bold text-primary tracking-tighter flex items-center gap-2">
+<button id="mobile-menu-toggle" class="md:hidden text-primary p-2 hover:bg-white/5 rounded transition-all">
+    <span class="material-symbols-outlined">menu</span>
+</button>
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">security</span>
+                    Phalanx AI
+                </div>
+<!-- Navigation Cluster (Web) -->
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-md text-body-md hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform" href="/">Network</a>
+<a class="text-primary border-b-2 border-primary pb-1 font-body-md text-body-md hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform" href="/threats.html">Threats</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-md text-body-md hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform" href="/intelligence.html">Intelligence</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors font-body-md text-body-md hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform" href="/assets.html">Assets</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:flex items-center gap-2 border border-primary text-primary px-4 py-2 rounded-DEFAULT font-label-caps text-label-caps hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-[16px]">terminal</span>
+                    Terminal Access
+                </button>
+<button class="bg-primary text-on-primary px-4 py-2 rounded-DEFAULT font-label-caps text-label-caps flex items-center gap-2 shadow-[0_0_15px_rgba(138,235,255,0.4)] hover:brightness-110 transition-all">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">shield</span>
+                    Deploy Shield
+                </button>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden border border-outline-variant ml-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">person</span>
+</div>
+</div>
+</div>
+</nav>
+
+<div class="flex h-[calc(100vh-72px)] overflow-hidden">
+<!-- Side Navigation Bar (Added for consistency) -->
+<aside class="hidden md:flex flex-col h-full py-margin bg-surface-container-lowest/80 backdrop-blur-2xl border-r border-outline-variant/30 shadow-2xl shadow-black w-64 z-40 shrink-0">
+<div class="px-6 mb-8">
+<div class="font-headline-sm text-headline-sm text-primary-fixed mb-1">Phalanx OS</div>
+<div class="font-data-mono text-data-mono text-outline opacity-60">v4.2.0-stable</div>
+</div>
+<nav class="flex-grow space-y-1">
+<a class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 font-label-caps text-label-caps hover:translate-x-1 duration-200" href="/">
+<span class="material-symbols-outlined text-primary">dashboard</span>
+                    Command Center
+                </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 font-label-caps text-label-caps hover:translate-x-1 duration-200" href="/traffic.html">
+<span class="material-symbols-outlined text-primary">analytics</span>
+                    Traffic Analysis
+                </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 font-label-caps text-label-caps hover:translate-x-1 duration-200" href="/scanner.html">
+<span class="material-symbols-outlined text-primary">security</span>
+                    Vulnerability Scan
+                </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 font-label-caps text-label-caps hover:translate-x-1 duration-200" href="/vault.html">
+<span class="material-symbols-outlined text-primary">lock</span>
+                    Encrypted Vault
+                </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 font-label-caps text-label-caps hover:translate-x-1 duration-200" href="/logs.html">
+<span class="material-symbols-outlined text-primary">terminal</span>
+                    System Logs
+                </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 font-label-caps text-label-caps hover:translate-x-1 duration-200" href="/assets.html">
+<span class="material-symbols-outlined text-primary">inventory_2</span>
+                    Asset Intelligence
+                </a>
+<a class="bg-primary-container/20 text-primary border-r-2 border-primary-fixed flex items-center gap-3 px-6 py-3 font-label-caps text-label-caps relative overflow-hidden" href="/threats.html">
+<div class="absolute inset-0 bg-gradient-to-r from-transparent to-primary/5"></div>
+<span class="material-symbols-outlined text-xl fill" style="font-variation-settings: 'FILL' 1;">radar</span>
+<span class="relative z-10">Global Threats</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 font-label-caps text-label-caps hover:translate-x-1 duration-200" href="/intelligence.html">
+<span class="material-symbols-outlined text-primary">psychology</span>
+                    Neural Stream
+                </a>
+</nav>
+<div class="px-6 mt-auto space-y-1">
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-2 hover:bg-white/5 font-label-caps text-label-caps text-[10px]" href="#">
+<span class="material-symbols-outlined text-sm">settings</span>
+                    Settings
+                </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-2 hover:bg-white/5 font-label-caps text-label-caps text-[10px]" href="#">
+<span class="material-symbols-outlined text-sm">help_center</span>
+                    Support
+                </a>
+<div class="pt-4 mt-4 border-t border-white/5">
+<button class="w-full bg-error-container/20 text-error border border-error/30 py-2 font-label-caps text-[11px] uppercase tracking-widest hover:bg-error-container/40 transition-all">Force Protocol</button>
+</div>
+</div>
+</aside>
+
+<!-- Mobile Menu Overlay -->
+<div id="mobile-menu" class="fixed inset-0 z-[100] bg-surface/90 backdrop-blur-2xl hidden opacity-0 transition-opacity duration-300 md:hidden">
+    <div class="flex flex-col h-full p-6">
+        <div class="flex items-center justify-between mb-12">
+            <h1 class="font-headline-sm text-headline-sm text-primary font-bold">Phalanx OS</h1>
+            <button id="mobile-menu-close" class="text-on-surface-variant p-2">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <nav class="flex flex-col gap-4 font-label-caps text-label-caps">
+            <a href="/" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">dashboard</span> Command Center
+            </a>
+            <a href="/traffic.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">analytics</span> Traffic Analysis
+            </a>
+            <a href="/scanner.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">security</span> Vulnerability Scan
+            </a>
+            <a href="/vault.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">lock</span> Encrypted Vault
+            </a>
+            <a href="/logs.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">terminal</span> System Logs
+            </a>
+            <a href="/assets.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">inventory_2</span> Asset Intelligence
+            </a>
+            <a href="/threats.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">radar</span> Global Threats
+            </a>
+            <a href="/intelligence.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">psychology</span> Neural Stream
+            </a>
+        </nav>
+        <div class="mt-auto">
+            <button class="w-full bg-primary text-on-primary py-4 rounded font-bold uppercase tracking-widest">Force Protocol</button>
+        </div>
+    </div>
+</div>
+
+<!-- Main Canvas -->
+<main class="flex-grow relative overflow-y-auto flex flex-col">
+<div class="relative z-10 w-full max-w-container-max mx-auto px-margin py-margin">
+<!-- Header -->
+<header class="mb-8 flex flex-col md:flex-row md:justify-between md:items-end gap-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface text-glow-primary">Global Threat Vector</h1>
+<p class="font-data-mono text-data-mono text-on-surface-variant mt-2">SYSTEM STATUS: <span class="text-primary">ENGAGED</span> | DEFCON: 2</p>
+</div>
+<div class="flex gap-4">
+<div class="glass-card px-4 py-3 rounded-lg flex items-center gap-3">
+<span class="w-3 h-3 rounded-full bg-error shadow-[0_0_10px_rgba(255,180,171,0.8)] block"></span>
+<span class="font-label-caps text-label-caps text-error">Critical Anomalies: 14</span>
+</div>
+</div>
+</header>
+<!-- Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Core Visualization (Sovereign-Alpha) -->
+<section class="glass-card col-span-1 md:col-span-8 rounded-xl p-6 flex flex-col relative overflow-hidden group">
+<div class="flex justify-between items-start mb-6 z-10">
+<h2 class="font-headline-sm text-headline-sm text-primary flex items-center gap-2">
+<span class="material-symbols-outlined">radar</span>
+                        SOVEREIGN-ALPHA CORE
+                    </h2>
+<span class="font-data-mono text-data-mono text-outline border border-outline/30 px-2 py-1 rounded-DEFAULT">LIVE FEED</span>
+</div>
+<div class="relative w-full aspect-[16/9] rounded-lg overflow-hidden border border-primary/20 bg-surface-container-lowest">
+<!-- Abstract Visualization Image -->
+<img alt="Core Visualization" class="w-full h-full object-cover opacity-80 mix-blend-screen" data-alt="A highly detailed, immersive digital art piece representing a sovereign-alpha core threat visualization. The image features a complex, three-dimensional geometric structure resembling a glowing metallic wireframe orb, shattered and glitched by intense neon blue and cyan energy beams. High-frequency fractal patterns and active intercept orbits create a sense of chaotic, high-speed data flow. The background is a deep, infinite abyss of pure black, emphasizing the extreme contrast and cyberpunk war-room aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFA09vLElVuCva0ivx6t04UqM3kz8q7gxLabOF8AWxi1RAaK-nKspd1mpUErDND4brNbKT0ql2GzpEdwk4UBEP_0GfJ_pf2_37kV2NNXIg-BQh5M-nmYpqvIEiQQGbEppy932WA7BvppHt_yzE5WIC8iLL70JH3zU_wPzzz5CEYaNVpQow5LjL-WUvAlG_8D4kTjxJHz7ZhIxD2AIbfQ-OqZbjEqzYnUlSOYhMz6M2tGe35ymm1OFKrcxJ38EUK6BCbL-gbQWNzRM"/>
+<!-- Overlays -->
+<div class="absolute inset-0 bg-gradient-to-t from-surface-dim/90 via-transparent to-transparent"></div>
+<div class="absolute inset-0 border border-primary/10 rounded-lg pointer-events-none"></div>
+<!-- Overlay Stats -->
+<div class="absolute bottom-4 left-4 flex gap-6">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant">NODE ALPHA-7</p>
+<p class="font-data-mono text-data-mono text-primary text-glow-primary">OPTIMAL</p>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant">ORBITAL INTERCEPT</p>
+<p class="font-data-mono text-data-mono text-primary text-glow-primary">ACTIVE</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Active Intercepts -->
+<section class="glass-card col-span-1 md:col-span-4 rounded-xl p-6 flex flex-col justify-between">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">speed</span>
+                        Intercept Velocity
+                    </h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Real-time threat mitigation rate across global infrastructure nodes.</p>
+<div class="mb-8">
+<span class="font-headline-lg text-headline-lg text-primary text-glow-primary block leading-none">12,842</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant">REQ / SEC</span>
+</div>
+</div>
+<!-- Static "Pulse" Visualization -->
+<div class="w-full space-y-3 mt-auto">
+<div class="flex justify-between items-center font-data-mono text-data-mono text-on-surface-variant">
+<span>SYN FLOOD</span>
+<span class="text-error">8,204</span>
+</div>
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-error w-[65%] shadow-[0_0_10px_rgba(255,180,171,0.5)]"></div>
+</div>
+<div class="flex justify-between items-center font-data-mono text-data-mono text-on-surface-variant pt-2">
+<span>SQL INJECTION</span>
+<span class="text-tertiary-fixed-dim">3,190</span>
+</div>
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-tertiary-fixed-dim w-[25%]"></div>
+</div>
+<div class="flex justify-between items-center font-data-mono text-data-mono text-on-surface-variant pt-2">
+<span>ZERO-DAY HEURISTICS</span>
+<span class="text-primary-fixed-dim">1,448</span>
+</div>
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary-fixed-dim w-[10%] shadow-[0_0_10px_rgba(47,217,244,0.5)]"></div>
+</div>
+</div>
+</section>
+<!-- Geographic Vector Map -->
+<section class="glass-card col-span-1 md:col-span-8 rounded-xl p-6 relative overflow-hidden">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-6 flex items-center gap-2 relative z-10">
+<span class="material-symbols-outlined text-primary">public</span>
+                    Origin Coordinates
+                </h2>
+<div class="absolute right-6 top-6 z-10 bg-surface/50 backdrop-blur-md border border-white/10 px-3 py-1 rounded-DEFAULT font-data-mono text-data-mono text-on-surface">
+                    MAP_PROJECTION: MERCATOR_CYBER
+                </div>
+<div class="w-full h-[300px] relative rounded-lg overflow-hidden border border-outline-variant/30 bg-surface-dim">
+<img alt="Global Threat Map" class="w-full h-full object-cover mix-blend-luminosity opacity-40" data-alt="A stylized, high-contrast digital map of the world rendered in a dark, cyberpunk aesthetic. The landmasses are silhouetted in deep navy and black, overlaid with a faint neon grid. Scattered across the continents are intense, glowing cyan and cyber-pink geographic markers indicating data origin points. Subtle linear gradient beams connect various global hubs, simulating secure data transmission lines against an infinite dark background." data-location="Global" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxpH8pqkQeFDE_h2tjf2IvczaSKw39No92FvNJ44MVYI08AGdiEvz71Yn5Qw2qconfe8PA7VkpHYfyMwJeGZaehHumtq9H9SGbkW_JONQXnN8cHahuKFomuzq8uhXAlXaproDl8spN8vge1L9BxEVa2btzS0j4ndd0byiXaiywi0wpnYVa7o7w905Y4Aq3l6fIYtB902zgOc_5hW9UVssinJnbKa4CIhCaiVt7te1_931DskWcRUOqme6JSp0EStdDWJjl8y9aAa8"/>
+<!-- Static Overlay Markers -->
+<div class="absolute top-[30%] left-[20%] w-3 h-3 bg-primary rounded-full shadow-[0_0_15px_rgba(138,235,255,1)]"></div>
+<div class="absolute top-[45%] left-[60%] w-4 h-4 bg-error rounded-full shadow-[0_0_20px_rgba(255,180,171,1)]"></div>
+<div class="absolute top-[25%] left-[75%] w-2 h-2 bg-primary rounded-full shadow-[0_0_10px_rgba(138,235,255,0.8)]"></div>
+<div class="absolute top-[60%] left-[30%] w-3 h-3 bg-tertiary-fixed-dim rounded-full shadow-[0_0_15px_rgba(255,177,198,0.8)]"></div>
+</div>
+</section>
+<!-- Terminal Readout -->
+<section class="glass-card col-span-1 md:col-span-4 rounded-xl p-6 flex flex-col bg-[#000000]/40">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">terminal</span>
+                    Live Log Stream
+                </h2>
+<div class="flex-1 bg-surface-container-lowest border border-outline-variant/50 rounded-lg p-4 font-data-mono text-data-mono overflow-y-hidden relative flex flex-col gap-2">
+<div class="text-on-surface-variant"><span class="text-primary mr-2">[14:02:44]</span> FW_BLOCK: 192.168.1.104 -&gt; PORT 22 (DENIED)</div>
+<div class="text-on-surface-variant"><span class="text-primary mr-2">[14:02:45]</span> IDS_ALERT: Payload signature match (RULE_749)</div>
+<div class="text-error bg-error/10 border border-error/20 px-2 py-1 rounded"><span class="mr-2">[14:02:45]</span> THREAT_DETECTED: APT_GROUP_NEXUS</div>
+<div class="text-on-surface-variant"><span class="text-primary mr-2">[14:02:46]</span> SHIELD_DEPLOYED: Auto-mitigation active.</div>
+<div class="text-on-surface-variant"><span class="text-primary mr-2">[14:02:46]</span> ROUTING: Traffic diverted to honeypot_alpha.</div>
+<div class="text-on-surface-variant"><span class="text-primary mr-2">[14:02:47]</span> ANALYZING_PAYLOAD...</div>
+<!-- Gradient fade out at bottom -->
+<div class="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-surface-container-lowest to-transparent pointer-events-none"></div>
+</div>
+</section>
+</div>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest full-width py-section-gap border-t border-surface-container-highest mt-margin relative z-10">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-container-max mx-auto px-margin">
+<div class="col-span-1 md:col-span-2">
+<div class="font-headline-sm text-headline-sm text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">security</span>
+                    Phalanx AI
+                </div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-md">Engineered for Absolute Sovereignty. Advanced threat detection and neutralization for enterprise architectures.</p>
+</div>
+<div class="col-span-1">
+<h3 class="font-label-caps text-label-caps text-on-surface mb-4">PROTOCOLS</h3>
+<ul class="space-y-2">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Zero Trust Path</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">API Docs</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h3 class="font-label-caps text-label-caps text-on-surface mb-4">LEGAL</h3>
+<ul class="space-y-2">
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Protocol</a></li>
+<li><a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Warrant Canary</a></li>
+</ul>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-margin mt-12 pt-8 border-t border-white/5">
+<p class="font-body-md text-body-md text-on-surface-variant">© 2024 Phalanx AI. Engineered for Absolute Sovereignty.</p>
+</div>
+</footer>
+</main>
+</div>
+<script src="/js/api.js"></script><script src="/js/logs.js"></script><script src="/js/dashboard.js"></script><script src="/js/scanner.js"></script><script src="/js/navigation.js"></script></body></html>

@@ -1,7 +1,12 @@
 {
   "version": 2,
+  "cleanUrls": true,
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/backend/server.js" },
+    { "source": "/traffic", "destination": "/public/traffic.html" },
+    { "source": "/scanner", "destination": "/public/scanner.html" },
+    { "source": "/logs", "destination": "/public/logs.html" },
+    { "source": "/vault", "destination": "/public/vault.html" },
     { "source": "/(.*)", "destination": "/public/$1" }
   ]
 }

@@ -125,9 +125,59 @@
         ::-webkit-scrollbar-track { background: #0c1324; }
         ::-webkit-scrollbar-thumb { background: #3c494c; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #859397; }
+
+        /* Animations */
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-slide-in {
+            animation: slideIn 0.4s ease-out forwards;
+        }
     </style>
 </head>
 <body class="bg-background text-on-background min-h-screen flex cyber-grid overflow-hidden">
+<!-- Mobile Menu Overlay -->
+<div id="mobile-menu" class="fixed inset-0 z-[100] bg-surface/90 backdrop-blur-2xl hidden opacity-0 transition-opacity duration-300 md:hidden">
+    <div class="flex flex-col h-full p-6">
+        <div class="flex items-center justify-between mb-12">
+            <h1 class="font-headline-sm text-headline-sm text-primary font-bold">Phalanx OS</h1>
+            <button id="mobile-menu-close" class="text-on-surface-variant p-2">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <nav class="flex flex-col gap-4 font-label-caps text-label-caps">
+            <a href="/" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">dashboard</span> Command Center
+            </a>
+            <a href="/traffic.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">analytics</span> Traffic Analysis
+            </a>
+            <a href="/scanner.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">security</span> Vulnerability Scan
+            </a>
+            <a href="/vault.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">lock</span> Encrypted Vault
+            </a>
+            <a href="/logs.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">terminal</span> System Logs
+            </a>
+            <a href="/assets.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">inventory_2</span> Asset Intelligence
+            </a>
+            <a href="/threats.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">radar</span> Global Threats
+            </a>
+            <a href="/intelligence.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">psychology</span> Neural Stream
+            </a>
+        </nav>
+        <div class="mt-auto">
+            <button class="w-full bg-primary text-on-primary py-4 rounded font-bold uppercase tracking-widest">Force Protocol</button>
+        </div>
+    </div>
+</div>
+
 <!-- SideNavBar (from JSON) -->
 <nav class="bg-surface-container-lowest/80 backdrop-blur-2xl text-primary font-label-caps text-label-caps docked left-0 h-screen w-64 border-r border-outline-variant/30 shadow-2xl shadow-black flex flex-col h-full py-margin hidden md:flex z-50">
 <!-- Header -->
@@ -167,6 +217,18 @@
 <span class="material-symbols-outlined">terminal</span>
                 System Logs
             </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="/assets.html">
+<span class="material-symbols-outlined">inventory_2</span>
+                Asset Intelligence
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="/threats.html">
+<span class="material-symbols-outlined">radar</span>
+                Global Threats
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="/intelligence.html">
+<span class="material-symbols-outlined">psychology</span>
+                Neural Stream
+            </a>
 </div>
 <!-- Footer Navigation -->
 <div class="mt-auto flex flex-col gap-1 pt-4 border-t border-outline-variant/30">
@@ -189,7 +251,13 @@
                      Phalanx AI
                  </div>
 <div class="flex items-center gap-4">
-<button class="text-primary hover:bg-white/5 transition-all duration-300 p-2 rounded">
+<nav class="hidden md:flex gap-6">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md" href="/">Network</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md" href="/threats.html">Threats</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md" href="/intelligence.html">Intelligence</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md" href="/assets.html">Assets</a>
+</nav>
+<button id="mobile-menu-toggle" class="text-primary p-2 rounded">
 <span class="material-symbols-outlined">menu</span>
 </button>
 </div>
@@ -232,8 +300,8 @@
 <div class="flex-grow w-full">
 <div class="flex justify-between items-center mb-6 border-b border-outline-variant/30 pb-4">
 <div>
-<h3 class="font-headline-sm text-headline-sm text-on-surface">Target: Core Node Alpha</h3>
-<p class="font-data-mono text-data-mono text-on-surface-variant mt-1">IP: 192.168.1.104</p>
+<h3 id="target-node-name" class="font-headline-sm text-headline-sm text-on-surface">Target: Ready</h3>
+<p id="target-node-ip" class="font-data-mono text-data-mono text-on-surface-variant mt-1">IP: ---.---.---.---</p>
 </div>
 <div class="flex items-center gap-2">
 <span class="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(138,235,255,1)]"></span>
@@ -243,11 +311,11 @@
 <div class="grid grid-cols-2 gap-4">
 <div class="bg-surface/50 p-4 rounded border border-outline-variant/20">
 <p class="font-data-mono text-data-mono text-on-surface-variant mb-1">Files Scanned</p>
-<p class="font-headline-md text-headline-md text-on-surface">1,402,943</p>
+<p id="files-scanned-count" class="font-headline-md text-headline-md text-on-surface">0</p>
 </div>
 <div class="bg-surface/50 p-4 rounded border border-outline-variant/20">
 <p class="font-data-mono text-data-mono text-on-surface-variant mb-1">Elapsed Time</p>
-<p class="font-headline-md text-headline-md text-on-surface">00:14:22</p>
+<p id="elapsed-time-counter" class="font-headline-md text-headline-md text-on-surface">00:00:00</p>
 </div>
 </div>
 </div>
@@ -258,7 +326,7 @@
 <h3 class="font-headline-sm text-headline-sm text-error">Critical CVEs</h3>
 <span class="bg-error/10 text-error px-2 py-1 rounded font-label-caps text-label-caps border border-error/20">3 FOUND</span>
 </div>
-<div class="flex-grow flex flex-col gap-3 overflow-y-auto pr-2">
+<div id="cve-list" class="flex-grow flex flex-col gap-3 overflow-y-auto pr-2">
 <!-- CVE Item -->
 <div class="bg-surface/50 p-3 rounded border border-error/30 hover:bg-error/5 transition-colors cursor-pointer group">
 <div class="flex justify-between items-start mb-2">
@@ -287,28 +355,28 @@
 <div>
 <div class="flex justify-between font-data-mono text-data-mono mb-1">
 <span class="text-on-surface-variant">Kernel Compliance</span>
-<span class="text-primary">92%</span>
+<span id="kernel-compliance-pct" class="text-primary">0%</span>
 </div>
 <div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
-<div class="bg-primary h-full w-[92%]"></div>
+<div id="kernel-compliance-bar" class="bg-primary h-full w-[0%] transition-all duration-1000"></div>
 </div>
 </div>
 <div>
 <div class="flex justify-between font-data-mono text-data-mono mb-1">
 <span class="text-on-surface-variant">Application Dependencies</span>
-<span class="text-error">64%</span>
+<span id="deps-compliance-pct" class="text-error">0%</span>
 </div>
 <div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
-<div class="bg-error h-full w-[64%]"></div>
+<div id="deps-compliance-bar" class="bg-error h-full w-[0%] transition-all duration-1000"></div>
 </div>
 </div>
 <div>
 <div class="flex justify-between font-data-mono text-data-mono mb-1">
 <span class="text-on-surface-variant">Security Definitions</span>
-<span class="text-primary">100%</span>
+<span id="defs-compliance-pct" class="text-primary">0%</span>
 </div>
 <div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
-<div class="bg-primary h-full w-[100%] shadow-[0_0_8px_rgba(138,235,255,0.8)]"></div>
+<div id="defs-compliance-bar" class="bg-primary h-full w-[0%] transition-all duration-1000 shadow-[0_0_8px_rgba(138,235,255,0.8)]"></div>
 </div>
 </div>
 </div>
@@ -329,7 +397,7 @@
                             </span>
 </div>
 </div>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+<div id="port-list" class="grid grid-cols-2 md:grid-cols-4 gap-3">
 <!-- Port Card -->
 <div class="bg-surface/40 border border-primary/30 p-3 rounded flex flex-col group hover:bg-surface/60 transition-colors">
 <div class="flex justify-between items-center mb-2">
@@ -389,8 +457,4 @@
 </div>
 </footer>
 </main>
-<script src="/js/api.js"></script>
-<script src="/js/logs.js"></script>
-<script src="/js/dashboard.js"></script>
-<script src="/js/scanner.js"></script>
-</body></html>
+<script src="/js/api.js"></script><script src="/js/logs.js"></script><script src="/js/dashboard.js"></script><script src="/js/scanner.js"></script><script src="/js/navigation.js"></script></body></html>

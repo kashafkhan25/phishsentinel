@@ -126,14 +126,18 @@
 <!-- TopNavBar -->
 <nav class="bg-surface/10 backdrop-blur-xl docked full-width top-0 sticky border-b border-white/10 shadow-[0_0_15px_rgba(47,217,244,0.1)] z-50">
 <div class="flex justify-between items-center w-full px-margin py-4 max-w-container-max mx-auto">
-<div class="flex items-center gap-8">
+<div class="flex items-center gap-4">
+<button id="mobile-menu-toggle" class="md:hidden text-primary p-2 hover:bg-white/5 rounded transition-all">
+    <span class="material-symbols-outlined">menu</span>
+</button>
 <a class="font-headline-md text-headline-md font-bold text-primary tracking-tighter" href="#">Phalanx AI</a>
-<div class="hidden md:flex gap-6">
-<a class="text-on-surface-variant hover:text-on-surface transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md" href="#">Network</a>
-<a class="text-on-surface-variant hover:text-on-surface transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md" href="#">Threats</a>
-<a class="text-primary border-b-2 border-primary pb-1 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md" href="#">Intelligence</a>
-<a class="text-on-surface-variant hover:text-on-surface transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md" href="#">Assets</a>
 </div>
+<nav class="hidden md:flex gap-6">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md" href="/">Network</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md" href="/threats.html">Threats</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md" href="/intelligence.html">Intelligence</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors hover:bg-white/5 transition-all duration-300 px-3 py-2 rounded-DEFAULT active:scale-95 transition-transform font-body-md text-body-md" href="/assets.html">Assets</a>
+</nav>
 </div>
 <div class="flex items-center gap-4">
 <div class="relative">
@@ -147,6 +151,47 @@
 </div>
 </nav>
 <div class="flex max-w-container-max mx-auto h-[calc(100vh-80px)]">
+<!-- Mobile Menu Overlay -->
+<div id="mobile-menu" class="fixed inset-0 z-[100] bg-surface/90 backdrop-blur-2xl hidden opacity-0 transition-opacity duration-300 md:hidden">
+    <div class="flex flex-col h-full p-6">
+        <div class="flex items-center justify-between mb-12">
+            <h1 class="font-headline-sm text-headline-sm text-primary font-bold">Phalanx OS</h1>
+            <button id="mobile-menu-close" class="text-on-surface-variant p-2">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <nav class="flex flex-col gap-4 font-label-caps text-label-caps">
+            <a href="/" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">dashboard</span> Command Center
+            </a>
+            <a href="/traffic.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">analytics</span> Traffic Analysis
+            </a>
+            <a href="/scanner.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">security</span> Vulnerability Scan
+            </a>
+            <a href="/vault.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">lock</span> Encrypted Vault
+            </a>
+            <a href="/logs.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">terminal</span> System Logs
+            </a>
+            <a href="/assets.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">inventory_2</span> Asset Intelligence
+            </a>
+            <a href="/threats.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">radar</span> Global Threats
+            </a>
+            <a href="/intelligence.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">psychology</span> Neural Stream
+            </a>
+        </nav>
+        <div class="mt-auto">
+            <button class="w-full bg-primary text-on-primary py-4 rounded font-bold uppercase tracking-widest">Force Protocol</button>
+        </div>
+    </div>
+</div>
+
 <!-- SideNavBar -->
 <aside class="hidden md:flex flex-col bg-surface-container-lowest/80 backdrop-blur-2xl docked left-0 h-full w-64 border-r border-outline-variant/30 shadow-2xl shadow-black py-margin shrink-0">
 <div class="px-6 mb-8">
@@ -173,6 +218,18 @@
 <a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="/logs.html">
 <span class="material-symbols-outlined">terminal</span>
                     System Logs
+                </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="/assets.html">
+<span class="material-symbols-outlined">inventory_2</span>
+                    Asset Intelligence
+                </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="/threats.html">
+<span class="material-symbols-outlined">radar</span>
+                    Global Threats
+                </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all hover:translate-x-1 duration-200" href="/intelligence.html">
+<span class="material-symbols-outlined">psychology</span>
+                    Neural Stream
                 </a>
 </nav>
 <div class="px-4 mt-auto mb-6">
@@ -424,5 +481,5 @@
 </div>
 </div>
 </footer>
-<script src="/js/api.js"></script><script src="/js/logs.js"></script><script src="/js/dashboard.js"></script><script src="/js/scanner.js"></script></body></html>
+<script src="/js/api.js"></script><script src="/js/logs.js"></script><script src="/js/dashboard.js"></script><script src="/js/scanner.js"></script><script src="/js/traffic_simulation.js"></script><script src="/js/navigation.js"></script></body></html>
 

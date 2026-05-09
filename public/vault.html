@@ -160,9 +160,50 @@
         }
     </style>
 </head>
-<body class="bg-background text-on-background font-body-md min-h-screen flex overflow-hidden cyber-grid-bg">
+<body class="bg-background text-on-background font-body-md min-h-screen flex cyber-grid-bg relative overflow-x-hidden">
+<!-- Mobile Menu Overlay -->
+<div id="mobile-menu" class="fixed inset-0 z-[100] bg-surface/90 backdrop-blur-2xl hidden opacity-0 transition-opacity duration-300 md:hidden">
+    <div class="flex flex-col h-full p-6">
+        <div class="flex items-center justify-between mb-12">
+            <h1 class="font-headline-sm text-headline-sm text-primary font-bold">Phalanx OS</h1>
+            <button id="mobile-menu-close" class="text-on-surface-variant p-2">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <nav class="flex flex-col gap-4 font-label-caps text-label-caps">
+            <a href="/" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">dashboard</span> Command Center
+            </a>
+            <a href="/traffic.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">analytics</span> Traffic Analysis
+            </a>
+            <a href="/scanner.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">security</span> Vulnerability Scan
+            </a>
+            <a href="/vault.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">lock</span> Encrypted Vault
+            </a>
+            <a href="/logs.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">terminal</span> System Logs
+            </a>
+            <a href="/assets.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">inventory_2</span> Asset Intelligence
+            </a>
+            <a href="/threats.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">radar</span> Global Threats
+            </a>
+            <a href="/intelligence.html" class="text-on-surface-variant py-3 px-4 border-b border-white/5 flex items-center gap-3">
+                <span class="material-symbols-outlined">psychology</span> Neural Stream
+            </a>
+        </nav>
+        <div class="mt-auto">
+            <button class="w-full bg-primary text-on-primary py-4 rounded font-bold uppercase tracking-widest">Force Protocol</button>
+        </div>
+    </div>
+</div>
+
 <!-- SideNavBar (Shared Component) -->
-<aside class="bg-surface-container-lowest/80 backdrop-blur-2xl docked left-0 h-screen w-64 border-r border-outline-variant/30 shadow-2xl shadow-black flex flex-col h-full py-margin shrink-0 z-20">
+<aside class="bg-surface-container-lowest/80 backdrop-blur-2xl docked left-0 h-screen w-64 border-r border-outline-variant/30 shadow-2xl shadow-black flex flex-col h-full py-margin shrink-0 z-20 hidden md:flex">
 <!-- Header -->
 <div class="px-6 mb-12 flex items-center gap-4">
 <div class="w-10 h-10 rounded-DEFAULT bg-surface-variant flex items-center justify-center overflow-hidden border border-outline-variant/50">
@@ -201,6 +242,18 @@
 <span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform" data-icon="terminal">terminal</span>
                 System Logs
             </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all duration-200 group font-label-caps text-label-caps" href="/assets.html">
+<span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform" data-icon="inventory_2">inventory_2</span>
+                Asset Intelligence
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all duration-200 group font-label-caps text-label-caps" href="/threats.html">
+<span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform" data-icon="radar">radar</span>
+                Global Threats
+            </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-6 py-3 hover:bg-white/5 hover:text-primary-fixed-dim transition-all duration-200 group font-label-caps text-label-caps" href="/intelligence.html">
+<span class="material-symbols-outlined text-xl group-hover:scale-110 transition-transform" data-icon="psychology">psychology</span>
+                Neural Stream
+            </a>
 </nav>
 <!-- CTA Action -->
 <div class="px-6 mt-8 mb-4">
@@ -226,18 +279,23 @@
 <!-- Decorative Header / Context Area -->
 <div class="w-full h-64 relative shrink-0 border-b border-white/5" data-alt="A highly abstract, dark, and menacing visualization of a digital containment zone. Complex web-like geometric structures glow faintly with cyan and cyber pink hues against a pitch-black background. The lighting is low-key, creating a moody, industrial aesthetic that emphasizes deep shadows and sharp, precise technical lines. The overall mood is clinical, secure, and slightly ominous, suggesting advanced cryptographic isolation." style="background-image: linear-gradient(to bottom, rgba(12, 19, 36, 0.2), #0c1324), url('https://lh3.googleusercontent.com/aida-public/AB6AXuC0tYYcYTZVFNXujgYO3MXGd2jvnLqDpnyn8SfOs6h2LIjTGbBMK-ks1Hd2GsQ2sk4Sqng0pSTmXQI2-kySKsxKI82BmCydNtSbceE7JFzhPMeksjwbaRauWeT1hw7IVmC6bAQ-NRlLC_HTWrKHRQ9tghX8H49jY865sEEfnkJB0sq7xmuQc6JsowLzC8hpyKwf2T6gmaciJLNboKbjNYWuvSy6otiW9oP2vORVGdANxLAXkO6oaB6Hu-SptXvNSVbs1_yWMb2xKf0'); background-size: cover; background-position: center;">
 <!-- Vault Status Overlay -->
-<div class="absolute bottom-0 left-0 right-0 p-10 max-w-container-max mx-auto flex items-end justify-between w-full">
+<div class="absolute bottom-0 left-0 right-0 p-6 md:p-10 max-w-container-max mx-auto flex flex-col md:flex-row items-start md:items-end justify-between w-full gap-6">
 <div>
 <div class="flex items-center gap-3 mb-2">
 <span class="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_#8aebff]"></span>
 <span class="font-data-mono text-data-mono text-primary uppercase tracking-widest text-[10px]">Vault Status: Maximum Security</span>
 </div>
-<h2 class="font-headline-lg text-headline-lg text-on-background mb-2">Encrypted Vault</h2>
-<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">Isolated holding environment for high-risk anomalies, cryptographic payloads, and classified digital assets. All entries are subject to Zero Trust protocols.</p>
+<div class="flex items-center gap-4">
+<button id="mobile-menu-toggle" class="md:hidden text-primary p-2 hover:bg-white/5 rounded transition-all">
+    <span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-headline-md md:font-headline-lg text-headline-md md:text-headline-lg text-on-background mb-2">Encrypted Vault</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl hidden sm:block">Isolated holding environment for high-risk anomalies, cryptographic payloads, and classified digital assets. All entries are subject to Zero Trust protocols.</p>
 </div>
 <!-- Global Action -->
-<div class="flex gap-4">
-<button class="glass-card px-6 py-3 rounded-DEFAULT font-label-caps text-label-caps text-error border-error/50 hover:bg-error/10 hover:border-error transition-all flex items-center gap-2 group">
+<div class="flex gap-4 w-full md:w-auto">
+<button class="glass-card w-full md:w-auto px-6 py-3 rounded-DEFAULT font-label-caps text-label-caps text-error border-error/50 hover:bg-error/10 hover:border-error transition-all flex items-center justify-center gap-2 group">
 <span class="material-symbols-outlined text-base group-hover:rotate-12 transition-transform" data-icon="delete_forever">delete_forever</span>
                         Global Purge
                     </button>
@@ -245,38 +303,38 @@
 </div>
 </div>
 <!-- Content Area -->
-<div class="p-10 flex-1 max-w-container-max mx-auto w-full flex flex-col gap-6">
+<div class="p-4 sm:p-6 md:p-10 flex-1 max-w-container-max mx-auto w-full flex flex-col gap-6">
 <!-- Controls / Filters -->
-<div class="flex items-center justify-between glass-card p-4 rounded-xl mb-4">
-<div class="flex items-center gap-4 w-1/3">
+<div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between glass-card p-4 rounded-xl mb-4 gap-4">
+<div class="flex items-center gap-4 flex-1">
 <span class="material-symbols-outlined text-outline ml-2" data-icon="search">search</span>
 <input class="bg-transparent border-none text-on-surface focus:ring-0 w-full font-data-mono text-data-mono placeholder-outline outline-none" placeholder="Search by Hash or Signature..." type="text"/>
 </div>
-<div class="flex items-center gap-2 border-l border-white/10 pl-4">
-<button class="px-4 py-1.5 rounded-full bg-surface-bright text-on-surface font-label-caps text-[10px] border border-white/5">All Assets</button>
-<button class="px-4 py-1.5 rounded-full bg-transparent text-on-surface-variant hover:text-on-surface font-label-caps text-[10px] border border-transparent hover:border-white/5 transition-all">Quarantined</button>
-<button class="px-4 py-1.5 rounded-full bg-transparent text-on-surface-variant hover:text-on-surface font-label-caps text-[10px] border border-transparent hover:border-white/5 transition-all">Classified</button>
+<div class="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 lg:border-l lg:border-white/10 lg:pl-4 scrollbar-hide">
+<button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-surface-bright text-on-surface font-label-caps text-[10px] border border-white/5">All Assets</button>
+<button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-transparent text-on-surface-variant hover:text-on-surface font-label-caps text-[10px] border border-transparent hover:border-white/5 transition-all">Quarantined</button>
+<button class="whitespace-nowrap px-4 py-1.5 rounded-full bg-transparent text-on-surface-variant hover:text-on-surface font-label-caps text-[10px] border border-transparent hover:border-white/5 transition-all">Classified</button>
 </div>
 </div>
 <!-- Asset List (Bento/Card Rows) -->
 <div class="flex flex-col gap-4">
 <!-- Asset Item 1 -->
-<div class="glass-card rounded-xl p-6 flex items-center justify-between group hover:bg-white/[0.05] transition-colors border-l-4 border-l-error">
+<div class="glass-card rounded-xl p-4 md:p-6 flex flex-col lg:flex-row lg:items-center justify-between group hover:bg-white/[0.05] transition-colors border-l-4 border-l-error gap-6">
 <!-- Identification Info -->
-<div class="flex items-start gap-6 w-1/3">
-<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center border border-white/5 shrink-0 group-hover:border-error/30 transition-colors">
-<span class="material-symbols-outlined text-error text-2xl" data-icon="bug_report">bug_report</span>
+<div class="flex items-start gap-4 md:gap-6 lg:w-1/3">
+<div class="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-surface-container-high flex items-center justify-center border border-white/5 shrink-0 group-hover:border-error/30 transition-colors">
+<span class="material-symbols-outlined text-error text-xl md:text-2xl" data-icon="bug_report">bug_report</span>
 </div>
-<div>
+<div class="min-w-0">
 <div class="flex items-center gap-2 mb-1">
-<span class="font-data-mono text-data-mono text-on-surface text-lg">0xAF9B...3F2A</span>
-<span class="material-symbols-outlined text-outline text-sm cursor-pointer hover:text-primary" data-icon="content_copy">content_copy</span>
+<span class="font-data-mono text-data-mono text-on-surface text-base md:text-lg truncate">0xAF9B...3F2A</span>
+<span class="material-symbols-outlined text-outline text-sm cursor-pointer hover:text-primary shrink-0" data-icon="content_copy">content_copy</span>
 </div>
-<p class="font-body-md text-[13px] text-outline">Unknown Executable Binary</p>
+<p class="font-body-md text-[12px] md:text-[13px] text-outline truncate">Unknown Executable Binary</p>
 </div>
 </div>
 <!-- Status & Meta -->
-<div class="flex flex-col gap-2 w-1/4">
+<div class="flex flex-col gap-2 lg:w-1/4">
 <div class="flex items-center gap-2">
 <span class="px-2 py-0.5 rounded bg-primary-container/10 text-primary border border-primary/20 font-data-mono text-[10px]">PQ-Crypto</span>
 <span class="px-2 py-0.5 rounded bg-error-container/20 text-error border border-error/20 font-label-caps text-[10px] flex items-center gap-1">
@@ -289,34 +347,34 @@
 </div>
 </div>
 <!-- Actions -->
-<div class="flex items-center gap-3 shrink-0">
-<button class="px-5 py-2 rounded-DEFAULT bg-transparent border border-outline-variant text-on-surface-variant hover:border-error hover:text-error transition-all font-label-caps text-[11px] tracking-wider flex items-center gap-2">
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
+<button class="px-5 py-2 rounded-DEFAULT bg-transparent border border-outline-variant text-on-surface-variant hover:border-error hover:text-error transition-all font-label-caps text-[11px] tracking-wider flex items-center justify-center gap-2">
 <span class="material-symbols-outlined text-sm" data-icon="delete">delete</span>
                             Permanent Purge
                         </button>
-<button class="px-5 py-2 rounded-DEFAULT bg-error text-on-error hover:bg-red-500 transition-all font-label-caps text-[11px] tracking-wider shadow-[0_0_10px_rgba(255,180,171,0.2)] hover:shadow-[0_0_15px_rgba(255,180,171,0.4)] flex items-center gap-2">
+<button class="px-5 py-2 rounded-DEFAULT bg-error text-on-error hover:bg-red-500 transition-all font-label-caps text-[11px] tracking-wider shadow-[0_0_10px_rgba(255,180,171,0.2)] hover:shadow-[0_0_15px_rgba(255,180,171,0.4)] flex items-center justify-center gap-2">
 <span class="material-symbols-outlined text-sm" data-icon="science">science</span>
                             Detonate in Sandbox
                         </button>
 </div>
 </div>
 <!-- Asset Item 2 -->
-<div class="glass-card rounded-xl p-6 flex items-center justify-between group hover:bg-white/[0.05] transition-colors border-l-4 border-l-primary">
+<div class="glass-card rounded-xl p-4 md:p-6 flex flex-col lg:flex-row lg:items-center justify-between group hover:bg-white/[0.05] transition-colors border-l-4 border-l-primary gap-6">
 <!-- Identification Info -->
-<div class="flex items-start gap-6 w-1/3">
-<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center border border-white/5 shrink-0 group-hover:border-primary/30 transition-colors">
-<span class="material-symbols-outlined text-primary text-2xl" data-icon="folder_locked">folder_open</span>
+<div class="flex items-start gap-4 md:gap-6 lg:w-1/3">
+<div class="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-surface-container-high flex items-center justify-center border border-white/5 shrink-0 group-hover:border-primary/30 transition-colors">
+<span class="material-symbols-outlined text-primary text-xl md:text-2xl" data-icon="folder_locked">folder_open</span>
 </div>
-<div>
+<div class="min-w-0">
 <div class="flex items-center gap-2 mb-1">
-<span class="font-data-mono text-data-mono text-on-surface text-lg">0x7C21...E88D</span>
-<span class="material-symbols-outlined text-outline text-sm cursor-pointer hover:text-primary" data-icon="content_copy">content_copy</span>
+<span class="font-data-mono text-data-mono text-on-surface text-base md:text-lg truncate">0x7C21...E88D</span>
+<span class="material-symbols-outlined text-outline text-sm cursor-pointer hover:text-primary shrink-0" data-icon="content_copy">content_copy</span>
 </div>
-<p class="font-body-md text-[13px] text-outline">Classified Dossier Archive</p>
+<p class="font-body-md text-[12px] md:text-[13px] text-outline truncate">Classified Dossier Archive</p>
 </div>
 </div>
 <!-- Status & Meta -->
-<div class="flex flex-col gap-2 w-1/4">
+<div class="flex flex-col gap-2 lg:w-1/4">
 <div class="flex items-center gap-2">
 <span class="px-2 py-0.5 rounded bg-surface-bright text-on-surface-variant border border-outline-variant/30 font-data-mono text-[10px]">AES-256</span>
 <span class="px-2 py-0.5 rounded bg-surface-container-high text-outline border border-outline-variant/30 font-label-caps text-[10px] flex items-center gap-1">
@@ -329,34 +387,34 @@
 </div>
 </div>
 <!-- Actions -->
-<div class="flex items-center gap-3 shrink-0">
-<button class="px-5 py-2 rounded-DEFAULT bg-transparent border border-outline-variant text-on-surface-variant hover:border-surface-tint hover:text-surface-tint transition-all font-label-caps text-[11px] tracking-wider flex items-center gap-2">
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
+<button class="px-5 py-2 rounded-DEFAULT bg-transparent border border-outline-variant text-on-surface-variant hover:border-surface-tint hover:text-surface-tint transition-all font-label-caps text-[11px] tracking-wider flex items-center justify-center gap-2">
 <span class="material-symbols-outlined text-sm" data-icon="download">download</span>
                             Extract Decrypted
                         </button>
-<button class="px-5 py-2 rounded-DEFAULT bg-surface-bright text-on-surface border border-transparent hover:border-white/20 transition-all font-label-caps text-[11px] tracking-wider flex items-center gap-2">
+<button class="px-5 py-2 rounded-DEFAULT bg-surface-bright text-on-surface border border-transparent hover:border-white/20 transition-all font-label-caps text-[11px] tracking-wider flex items-center justify-center gap-2">
 <span class="material-symbols-outlined text-sm" data-icon="lock_open">lock_open</span>
                             Request Access
                         </button>
 </div>
 </div>
 <!-- Asset Item 3 -->
-<div class="glass-card rounded-xl p-6 flex items-center justify-between group hover:bg-white/[0.05] transition-colors border-l-4 border-l-tertiary-container">
+<div class="glass-card rounded-xl p-4 md:p-6 flex flex-col lg:flex-row lg:items-center justify-between group hover:bg-white/[0.05] transition-colors border-l-4 border-l-tertiary-container gap-6">
 <!-- Identification Info -->
-<div class="flex items-start gap-6 w-1/3">
-<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center border border-white/5 shrink-0 group-hover:border-tertiary-container/30 transition-colors">
-<span class="material-symbols-outlined text-tertiary-container text-2xl" data-icon="memory">memory</span>
+<div class="flex items-start gap-4 md:gap-6 lg:w-1/3">
+<div class="w-10 h-10 md:w-12 md:h-12 rounded-lg bg-surface-container-high flex items-center justify-center border border-white/5 shrink-0 group-hover:border-tertiary-container/30 transition-colors">
+<span class="material-symbols-outlined text-tertiary-container text-xl md:text-2xl" data-icon="memory">memory</span>
 </div>
-<div>
+<div class="min-w-0">
 <div class="flex items-center gap-2 mb-1">
-<span class="font-data-mono text-data-mono text-on-surface text-lg">0x1A4F...99BC</span>
-<span class="material-symbols-outlined text-outline text-sm cursor-pointer hover:text-primary" data-icon="content_copy">content_copy</span>
+<span class="font-data-mono text-data-mono text-on-surface text-base md:text-lg truncate">0x1A4F...99BC</span>
+<span class="material-symbols-outlined text-outline text-sm cursor-pointer hover:text-primary shrink-0" data-icon="content_copy">content_copy</span>
 </div>
-<p class="font-body-md text-[13px] text-outline">Suspicious Memory Dump</p>
+<p class="font-body-md text-[12px] md:text-[13px] text-outline truncate">Suspicious Memory Dump</p>
 </div>
 </div>
 <!-- Status & Meta -->
-<div class="flex flex-col gap-2 w-1/4">
+<div class="flex flex-col gap-2 lg:w-1/4">
 <div class="flex items-center gap-2">
 <span class="px-2 py-0.5 rounded bg-primary-container/10 text-primary border border-primary/20 font-data-mono text-[10px]">PQ-Crypto</span>
 <span class="px-2 py-0.5 rounded bg-tertiary-container/10 text-tertiary-container border border-tertiary-container/30 font-label-caps text-[10px] flex items-center gap-1">
@@ -370,12 +428,12 @@
 </div>
 </div>
 <!-- Actions -->
-<div class="flex items-center gap-3 shrink-0">
-<button class="px-5 py-2 rounded-DEFAULT bg-transparent border border-outline-variant text-on-surface-variant hover:border-error hover:text-error transition-all font-label-caps text-[11px] tracking-wider flex items-center gap-2">
+<div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
+<button class="px-5 py-2 rounded-DEFAULT bg-transparent border border-outline-variant text-on-surface-variant hover:border-error hover:text-error transition-all font-label-caps text-[11px] tracking-wider flex items-center justify-center gap-2">
 <span class="material-symbols-outlined text-sm" data-icon="delete">delete</span>
                             Permanent Purge
                         </button>
-<button class="px-5 py-2 rounded-DEFAULT bg-surface-bright text-on-surface border border-transparent hover:border-white/20 transition-all font-label-caps text-[11px] tracking-wider flex items-center gap-2 opacity-50 cursor-not-allowed" disabled="">
+<button class="px-5 py-2 rounded-DEFAULT bg-surface-bright text-on-surface border border-transparent hover:border-white/20 transition-all font-label-caps text-[11px] tracking-wider flex items-center justify-center gap-2 opacity-50 cursor-not-allowed" disabled="">
 <span class="material-symbols-outlined text-sm" data-icon="hourglass_empty">hourglass_empty</span>
                             Processing...
                         </button>
@@ -386,5 +444,5 @@
 <div class="h-12"></div>
 </div>
 </main>
-<script src="/js/api.js"></script><script src="/js/logs.js"></script><script src="/js/dashboard.js"></script><script src="/js/scanner.js"></script></body></html>
+<script src="/js/api.js"></script><script src="/js/logs.js"></script><script src="/js/dashboard.js"></script><script src="/js/scanner.js"></script><script src="/js/navigation.js"></script></body></html>
 

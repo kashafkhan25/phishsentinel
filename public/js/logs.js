@@ -58,3 +58,21 @@ const Logs = {
         }
     }
 };
+
+// Background log simulation for logs.html
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.location.pathname.includes('logs')) {
+        const bgLogs = [
+            { msg: "Heartbeat check: Kernel isolated.", type: "info" },
+            { msg: "Traffic spikes detected in sub-segment 0x4.", type: "alert" },
+            { msg: "Applying firewall rule #1042: BLOCK IP 45.33.2.11", type: "action" },
+            { msg: "Database replication status: SYNCED", type: "info" },
+            { msg: "Unrecognized request from peer 10.0.0.45", type: "warn" }
+        ];
+
+        setInterval(() => {
+            const random = bgLogs[Math.floor(Math.random() * bgLogs.length)];
+            Logs.append(random.msg, random.type);
+        }, 5000);
+    }
+});

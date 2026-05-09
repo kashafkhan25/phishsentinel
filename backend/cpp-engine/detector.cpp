@@ -1,17 +1,8 @@
+#include "engine.h"
 #include <iostream>
 #include <string>
 #include <vector>
 #include <map>
-
-// External function declarations (from other files)
-double calculateEntropy(const std::string& str);
-struct URLParts {
-    std::string protocol;
-    std::string domain;
-    std::string path;
-};
-URLParts parseURL(const std::string& url);
-int calculateScore(const std::string& domain, const std::string& protocol, double entropy, const std::vector<std::string>& reasons);
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
@@ -27,6 +18,8 @@ int main(int argc, char* argv[]) {
     if (parts.protocol != "https") reasons.push_back("Unsafe protocol (HTTP)");
     if (entropy > 4.0) reasons.push_back("High domain entropy (Randomness)");
     if (parts.domain.length() > 25) reasons.push_back("Suspiciously long domain");
+    if (isIPAddress(parts.domain)) reasons.push_back("IP-based URL detected");
+    if (countSubdomains(parts.domain) > 3) reasons.push_back("Excessive subdomains detected");
     
     std::vector<std::string> keywords = {"login", "verify", "secure", "banking", "update", "signin", "paypal", "google", "microsoft"};
     for (const auto& kw : keywords) {
